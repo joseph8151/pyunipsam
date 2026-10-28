@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>��������� ��������� Part 2</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav><a href="index.html">목차</a><a href="p1.html">Part1</a><a href="p2.html">Part2</a><a href="p3.html">Part3</a></nav>
+<header id="title-block-header">
+<h1 class="title">��������� ��������� Part 2</h1>
+</header>
+<h1 id="편입샘-사업-구축-기획서--part-2-상품목차가격">편입샘 사업 구축
+기획서 — Part 2. 상품·목차·가격</h1>
+<blockquote>
+<p>모든 수요·전환·난이도 등급은 **[추정]**이다. 실측 데이터가 없으므로
+수치(판매량, 전환율)는 만들지 않았다. 가격은 'A안(권고 출시가)'이다.
+사용자 가설가는 8장에서 'B안'으로 따로 시험한다. 대학별 상품은
+**[미확인] 대학은 요강 확인 전 '보류'**다.</p>
+</blockquote>
+<h2 id="범례">범례</h2>
+<ul>
+<li>난이도 <code>제작/검수</code>: 하·중·상 (영어 문항은 AI 초안 비중이
+높아 제작 '중', 수학은 풀이 검증이 필요해 검수 '상', 전공은 전문가 검수
+필수)</li>
+<li>우선순위: <strong>P1</strong> 출시 1~3개월, <strong>P2</strong>
+4~6개월, <strong>P3</strong> 6개월 이후, <strong>보류</strong> 공식 요강
+확인 후 결정, <strong>통합</strong> 다른 상품에 합침</li>
+<li>쪽수 설계 원칙: 200P = 문제 약 75 + 해설 약 115 + 요약·부록 약 10.
+해설이 문제의 1.5배 이상이 되도록 설계(해설이 핵심 차별점).</li>
+</ul>
+<hr />
+<h2 id="4-전체-상품-후보-66종">4. 전체 상품 후보 (66종)</h2>
+<h3 id="a-편입영어-어휘">A. 편입영어 어휘</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>세부 영역</th>
+<th>문항/쪽</th>
+<th>가격(A안)</th>
+<th>제작/검수</th>
+<th>수요·전환</th>
+<th>차별화</th>
+<th>우선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>필수 어휘 2000 (기초~중급)</td>
+<td>빈출 어휘 2000, 예문, 일일 학습표</td>
+<td>2000어/약 200쪽</td>
+<td>39,000</td>
+<td>중/중</td>
+<td>상·중</td>
+<td>일 단위 학습표·망각곡선 복습 문제</td>
+<td>P2</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>고난도 어휘 300제</td>
+<td>상위권 대학용 동의어 선택형</td>
+<td>300문항/약 120쪽</td>
+<td>29,000</td>
+<td>하/중</td>
+<td>상·중</td>
+<td>오답 선지별 의미 해설</td>
+<td><strong>P1</strong></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>동의어·반의어 300제</td>
+<td>유의어 구분, 문맥 판단</td>
+<td>300/약 120쪽</td>
+<td>29,000</td>
+<td>하/중</td>
+<td>중·중</td>
+<td>뉘앙스 차이 표</td>
+<td>통합→#2</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>다의어·숙어 200제</td>
+<td>다의어, 구동사, 관용구</td>
+<td>200/약 100쪽</td>
+<td>24,000</td>
+<td>하/중</td>
+<td>중·중</td>
+<td>문맥별 뜻 분기</td>
+<td>P2</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>상위권 대학 어휘 모의고사</td>
+<td>어휘 영역만 20문항×10회</td>
+<td>200/약 90쪽</td>
+<td>24,000</td>
+<td>하/중</td>
+<td>중·중</td>
+<td>시간 15분 설계</td>
+<td>P3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b-편입영어-문법">B. 편입영어 문법</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>세부 영역</th>
+<th>문항/쪽</th>
+<th>가격</th>
+<th>제작/검수</th>
+<th>수요·전환</th>
+<th>차별화</th>
+<th>우선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>6</td>
+<td>핵심 문법 300제</td>
+<td>시제·수일치·준동사·관계사·가정법 등</td>
+<td>300/약 200쪽</td>
+<td>59,000</td>
+<td>중/중</td>
+<td>상·중</td>
+<td>개념 1쪽 요약+유형별 오답 태그</td>
+<td><strong>P1</strong></td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>문법 오류 찾기 200제</td>
+<td>밑줄형 오류</td>
+<td>200/약 130쪽</td>
+<td>39,000</td>
+<td>중/중</td>
+<td>상·중</td>
+<td>오답 후보의 '왜 틀리지 않는가' 해설</td>
+<td><strong>P1</strong></td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>빈칸 문법 200제</td>
+<td>빈칸 선택형</td>
+<td>200/약 130쪽</td>
+<td>39,000</td>
+<td>중/중</td>
+<td>중·중</td>
+<td>단서 찾기 순서 가이드</td>
+<td>통합→#6</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>고난도 문법 실전 모의고사</td>
+<td>20문항×5회</td>
+<td>100/약 100쪽</td>
+<td>29,000</td>
+<td>중/중</td>
+<td>중·중</td>
+<td>시간 배분 표</td>
+<td>P2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c-편입영어-독해">C. 편입영어 독해</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>세부 영역</th>
+<th>문항/쪽</th>
+<th>가격</th>
+<th>제작/검수</th>
+<th>수요·전환</th>
+<th>차별화</th>
+<th>우선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10</td>
+<td>기초 독해 200제</td>
+<td>지문 약 150~250어</td>
+<td>약 60지문/약 160쪽</td>
+<td>39,000</td>
+<td>중/중</td>
+<td>중·중</td>
+<td>구문 분석 해설</td>
+<td>P2</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>중급 독해 200제</td>
+<td>약 250~350어, 유형 혼합</td>
+<td>약 60지문(문항 200)/약 200쪽</td>
+<td>49,000</td>
+<td>중/상</td>
+<td>상·중</td>
+<td>오답 선지 근거 문장 표시</td>
+<td><strong>P1</strong></td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>고난도 독해 200제</td>
+<td>학술·추상 지문</td>
+<td>약 55지문/약 200쪽</td>
+<td>59,000</td>
+<td>상/상</td>
+<td>상·중</td>
+<td>단락 구조도</td>
+<td>P2</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>추론·주제·요지 200제</td>
+<td>유형별 훈련</td>
+<td>200/약 180쪽</td>
+<td>49,000</td>
+<td>중/상</td>
+<td>중·중</td>
+<td>유형별 풀이 절차</td>
+<td>P2</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>상위권 장문 독해 집중</td>
+<td>대형 지문</td>
+<td>약 30지문/약 180쪽</td>
+<td>49,000</td>
+<td>상/상</td>
+<td>중·중</td>
+<td>시간 압박 시뮬레이션</td>
+<td>P3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="d-편입영어-논리">D. 편입영어 논리</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>세부 영역</th>
+<th>문항/쪽</th>
+<th>가격</th>
+<th>제작/검수</th>
+<th>수요·전환</th>
+<th>차별화</th>
+<th>우선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>15</td>
+<td>논리완성 200제</td>
+<td>빈칸·연결어</td>
+<td>200/약 150쪽</td>
+<td>39,000</td>
+<td>중/상</td>
+<td>상·중</td>
+<td>연결어 논리 지도</td>
+<td><strong>P1</strong></td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>단문 논리 200제</td>
+<td>짧은 지문</td>
+<td>200/약 150쪽</td>
+<td>39,000</td>
+<td>중/상</td>
+<td>중·중</td>
+<td>〃</td>
+<td>통합→#15</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>장문 논리 200제</td>
+<td>긴 지문</td>
+<td>약 50지문/약 170쪽</td>
+<td>49,000</td>
+<td>상/상</td>
+<td>중·중</td>
+<td>〃</td>
+<td>P3</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>고난도 논리 실전 모의고사</td>
+<td>20문항×5회</td>
+<td>100/약 110쪽</td>
+<td>29,000</td>
+<td>상/상</td>
+<td>중·중</td>
+<td>〃</td>
+<td>P3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="e-편입영어-종합">E. 편입영어 종합</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>세부 영역</th>
+<th>문항/쪽</th>
+<th>가격</th>
+<th>제작/검수</th>
+<th>수요·전환</th>
+<th>차별화</th>
+<th>우선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>19</td>
+<td>영어 COMPLETE 200P</td>
+<td>어휘·문법·독해·논리 통합</td>
+<td>약 280문항/200쪽</td>
+<td>69,000</td>
+<td>상/상</td>
+<td>상·중</td>
+<td>영역 균형 진단표</td>
+<td>P2</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>영어 실전 모의고사 10회</td>
+<td>40문항(한양·중앙형)×10</td>
+<td>400/약 300쪽</td>
+<td>89,000</td>
+<td>상/상</td>
+<td>상·중</td>
+<td>실제 시간·문항수 기준</td>
+<td>P2</td>
+</tr>
+<tr class="odd">
+<td>21</td>
+<td>영어 파이널 100제</td>
+<td>시즌 직전 핵심</td>
+<td>100/약 100쪽</td>
+<td>19,000</td>
+<td>중/중</td>
+<td>상·상</td>
+<td>12월 출시</td>
+<td><strong>P1</strong></td>
+</tr>
+<tr class="even">
+<td>22</td>
+<td>30일 완성 패키지</td>
+<td>일 단위 구성</td>
+<td>약 100쪽+플래너</td>
+<td>59,000</td>
+<td>중/중</td>
+<td>중·중</td>
+<td>일정 중심</td>
+<td>P3</td>
+</tr>
+<tr class="odd">
+<td>23</td>
+<td>상위권 대비 패키지</td>
+<td>고난도 독해·논리·어휘</td>
+<td>번들</td>
+<td>번들가</td>
+<td>—</td>
+<td>중·중</td>
+<td>번들 할인</td>
+<td>P3</td>
+</tr>
+</tbody>
+</table>
+<h3 id="f-편입수학--미적분학">F. 편입수학 — 미적분학</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>세부 영역</th>
+<th>문항/쪽</th>
+<th>가격</th>
+<th>제작/검수</th>
+<th>수요·전환</th>
+<th>차별화</th>
+<th>우선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>24</td>
+<td>기초수학</td>
+<td>함수·극한·삼각·지수로그</td>
+<td>150/약 120쪽</td>
+<td>29,000</td>
+<td>중/상</td>
+<td>중·중</td>
+<td>선수 개념 진단</td>
+<td>P2</td>
+</tr>
+<tr class="even">
+<td>25</td>
+<td>미분법 200제</td>
+<td>극한·미분·응용</td>
+<td>200/약 200쪽</td>
+<td>59,000</td>
+<td>중/상</td>
+<td>상·중</td>
+<td>풀이 2종(정석/단축)</td>
+<td><strong>P1</strong></td>
+</tr>
+<tr class="odd">
+<td>26</td>
+<td>적분법 200제</td>
+<td>부정·정적분·응용</td>
+<td>200/약 200쪽</td>
+<td>59,000</td>
+<td>중/상</td>
+<td>상·중</td>
+<td>〃</td>
+<td><strong>P1</strong></td>
+</tr>
+<tr class="even">
+<td>27</td>
+<td>다변수미적분 200제</td>
+<td>편미분·중적분·벡터해석</td>
+<td>200/약 200쪽</td>
+<td>59,000</td>
+<td>상/상</td>
+<td>중·중</td>
+<td>계산 검증 로그</td>
+<td>P2</td>
+</tr>
+<tr class="odd">
+<td>28</td>
+<td>미적분학 종합 모의고사</td>
+<td>25문항×4회</td>
+<td>100/약 150쪽</td>
+<td>39,000</td>
+<td>상/상</td>
+<td>중·중</td>
+<td>한양형 25문항 70분</td>
+<td>P2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="g-편입수학--선형대수공학수학">G. 편입수학 —
+선형대수·공학수학</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>세부 영역</th>
+<th>문항/쪽</th>
+<th>가격</th>
+<th>제작/검수</th>
+<th>수요·전환</th>
+<th>차별화</th>
+<th>우선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>29</td>
+<td>선형대수 200제</td>
+<td>행렬·고유값·벡터공간</td>
+<td>200/약 200쪽</td>
+<td>59,000</td>
+<td>중/상</td>
+<td>상·중</td>
+<td>정답 유일성 표시</td>
+<td><strong>P1</strong></td>
+</tr>
+<tr class="even">
+<td>30</td>
+<td>행렬·벡터 집중</td>
+<td>계산 훈련</td>
+<td>150/약 130쪽</td>
+<td>39,000</td>
+<td>중/상</td>
+<td>중·중</td>
+<td>통합→#29</td>
+<td>통합</td>
+</tr>
+<tr class="odd">
+<td>31</td>
+<td>공학수학 200제</td>
+<td>급수·푸리에·라플라스</td>
+<td>200/약 200쪽</td>
+<td>59,000</td>
+<td>상/상</td>
+<td>중·중</td>
+<td>출제 대학 여부 확인 후</td>
+<td>보류</td>
+</tr>
+<tr class="even">
+<td>32</td>
+<td>미분방정식 집중</td>
+<td>ODE 유형</td>
+<td>150/약 150쪽</td>
+<td>49,000</td>
+<td>상/상</td>
+<td>중·중</td>
+<td>유형 분류</td>
+<td>P3</td>
+</tr>
+<tr class="odd">
+<td>33</td>
+<td>수학 COMPLETE 200P</td>
+<td>통합</td>
+<td>약 180문항/200쪽</td>
+<td>69,000</td>
+<td>상/상</td>
+<td>상·중</td>
+<td>범위 표</td>
+<td>P3</td>
+</tr>
+<tr class="even">
+<td>34</td>
+<td>수학 실전 모의고사 10회</td>
+<td>25문항×10</td>
+<td>250/약 300쪽</td>
+<td>89,000</td>
+<td>상/상</td>
+<td>상·중</td>
+<td>실제 시간 기준</td>
+<td>P2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="h-대학별-모의고사-2026학년도-요강-기준-확인-상태-반영">H. 대학별
+모의고사 (2026학년도 요강 기준 확인 상태 반영)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>확인 상태</th>
+<th>가격</th>
+<th>제작/검수</th>
+<th>수요·전환</th>
+<th>우선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>35</td>
+<td>건국대</td>
+<td><strong>[미확인]</strong></td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>보류</td>
+</tr>
+<tr class="even">
+<td>36</td>
+<td>중앙대 (영어 40문항 60분 / 수학)</td>
+<td>영어 [확인], 수학 문항수 미확인</td>
+<td>영어 29,000(3회)</td>
+<td>중/상</td>
+<td>상·중</td>
+<td><strong>P1(영어)</strong></td>
+</tr>
+<tr class="odd">
+<td>37</td>
+<td>한양대 (인문 영어 40문항 70분 / <strong>자연 수학 25문항
+70분</strong>)</td>
+<td>[확인]</td>
+<td>수학 39,000 / 영어 29,000</td>
+<td>상/상</td>
+<td>상·중</td>
+<td><strong>P1</strong></td>
+</tr>
+<tr class="even">
+<td>38</td>
+<td>성균관대</td>
+<td>부분 확인(90분, 문항수 미확인)</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>보류→요강 후 P2</td>
+</tr>
+<tr class="odd">
+<td>39</td>
+<td>서강대</td>
+<td>[미확인]</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>보류</td>
+</tr>
+<tr class="even">
+<td>40</td>
+<td>경희대</td>
+<td>자료 충돌(공인영어 10%)</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>보류</td>
+</tr>
+<tr class="odd">
+<td>41</td>
+<td>한국외대 (인문 영어 50문항 60분 / 자연 영어25+수학20 90분)</td>
+<td>2차 자료 [확인 필요]</td>
+<td>29,000</td>
+<td>중/상</td>
+<td>중·중</td>
+<td><strong>P1</strong>(요강 대조 후)</td>
+</tr>
+<tr class="even">
+<td>42</td>
+<td>동국대</td>
+<td>[미확인]</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>보류</td>
+</tr>
+<tr class="odd">
+<td>43</td>
+<td>홍익대</td>
+<td>[미확인]</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>보류</td>
+</tr>
+<tr class="even">
+<td>44</td>
+<td>국민대</td>
+<td>[미확인]</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>보류</td>
+</tr>
+<tr class="odd">
+<td>45</td>
+<td>숭실대</td>
+<td>[미확인]</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>보류</td>
+</tr>
+<tr class="even">
+<td>46</td>
+<td>세종대</td>
+<td>[미확인]</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>보류</td>
+</tr>
+<tr class="odd">
+<td>47</td>
+<td>단국대</td>
+<td>[미확인]</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>보류</td>
+</tr>
+<tr class="even">
+<td>48</td>
+<td>광운대</td>
+<td>[미확인]</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>보류</td>
+</tr>
+<tr class="odd">
+<td>49</td>
+<td>가천대</td>
+<td>[미확인]</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>보류</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>대학별 상품 공통 규칙: 표지에 '2026학년도 모집요강 기준'을 표기하고
+요강 링크를 첨부, 존재하지 않는 영역은 만들지 않는다. 요강에서 '영어만'
+또는 '수학만' 보는 대학은 그 과목만 제작.</p>
+</blockquote>
+<h3 id="i-일반편입학사편입-종합">I. 일반편입·학사편입 종합</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>세부 영역</th>
+<th>가격</th>
+<th>제작/검수</th>
+<th>수요·전환</th>
+<th>우선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>50</td>
+<td>일반편입 실전 종합</td>
+<td>대학 공통 영어+수학 혼합</td>
+<td>89,000</td>
+<td>상/상</td>
+<td>중·중</td>
+<td>P3</td>
+</tr>
+<tr class="even">
+<td>51</td>
+<td>학사편입 실전 종합</td>
+<td>학사편입 필기 동일 시 <strong>50과 통합</strong></td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td><strong>통합→#50</strong></td>
+</tr>
+<tr class="odd">
+<td>52</td>
+<td>인문계열 모의고사</td>
+<td>영어 중심</td>
+<td>39,000</td>
+<td>중/상</td>
+<td>중·중</td>
+<td>P3</td>
+</tr>
+<tr class="even">
+<td>53</td>
+<td>자연계열 모의고사</td>
+<td>수학 중심 (영어 폐지 대학 반영)</td>
+<td>39,000</td>
+<td>상/상</td>
+<td>중·중</td>
+<td>P2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="j-공인영어-활용-편입">J. 공인영어 활용 편입</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>판단</th>
+<th>우선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>54</td>
+<td>TOEIC 활용 편입</td>
+<td>대학별 인정 시험·기준 확인 필요. 범용 문제집은 기존 성인 브랜드와
+중복되므로 <strong>'기준표(어느 대학이 몇 점)' 형태의 무료/저가
+가이드</strong>만 검토</td>
+<td>보류</td>
+</tr>
+<tr class="even">
+<td>55</td>
+<td>TOEFL 활용 편입</td>
+<td>〃</td>
+<td>보류</td>
+</tr>
+<tr class="odd">
+<td>56</td>
+<td>TEPS 활용 편입</td>
+<td>〃</td>
+<td>보류</td>
+</tr>
+</tbody>
+</table>
+<h3 id="k-전공-필기-전문가-검수-필수">K. 전공 필기 (전문가 검수
+필수)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>판단</th>
+<th>우선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>57</td>
+<td>컴퓨터공학 전공기초</td>
+<td>전공시험 시행 대학·모집단위 확인 후. 검수자 확보 전 제작 금지</td>
+<td>보류</td>
+</tr>
+<tr class="even">
+<td>58</td>
+<td>경영학</td>
+<td>〃</td>
+<td>보류</td>
+</tr>
+<tr class="odd">
+<td>59</td>
+<td>경제학</td>
+<td>〃</td>
+<td>보류</td>
+</tr>
+<tr class="even">
+<td>60</td>
+<td>생명과학</td>
+<td>삼육대 약학(화학·생물 50문항 60분)처럼 시행 사례는 있음 [확인] —
+규모 작음</td>
+<td>보류</td>
+</tr>
+<tr class="odd">
+<td>61</td>
+<td>일반화학</td>
+<td>〃</td>
+<td>보류</td>
+</tr>
+<tr class="even">
+<td>62</td>
+<td>일반물리학</td>
+<td>〃</td>
+<td>보류</td>
+</tr>
+</tbody>
+</table>
+<h3 id="l-면접서류-보조-상품">L. 면접·서류 (보조 상품)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>가격</th>
+<th>제작/검수</th>
+<th>우선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>63</td>
+<td>면접 예상질문 100선 (면접 시행 대학 한정, 삼육대 등 [확인])</td>
+<td>19,000</td>
+<td>하/중</td>
+<td>P3</td>
+</tr>
+<tr class="even">
+<td>64</td>
+<td>전공별 면접 대비</td>
+<td>—</td>
+<td>—</td>
+<td>통합→#63</td>
+</tr>
+<tr class="odd">
+<td>65</td>
+<td>학업계획서 작성 워크북</td>
+<td>14,000</td>
+<td>하/중</td>
+<td>P3</td>
+</tr>
+<tr class="even">
+<td>66</td>
+<td>자기소개서 작성 워크북</td>
+<td>—</td>
+<td>—</td>
+<td>통합→#65</td>
+</tr>
+<tr class="odd">
+<td>67</td>
+<td>면접·서류 FINAL REVIEW</td>
+<td>—</td>
+<td>—</td>
+<td>통합→#63</td>
+</tr>
+</tbody>
+</table>
+<h3 id="m-신규-추가-제안-후보-목록에-없던-것">M. 신규 추가 제안 (후보
+목록에 없던 것)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>상품명</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>68</td>
+<td>한양대 자연계 수학 25문항 모의고사 (=#37 분리판)</td>
+<td>2026 영어 폐지로 수학 단일 과목이 중요해짐 [확인]</td>
+</tr>
+<tr class="even">
+<td>69</td>
+<td>오답노트 + 학습 플래너 템플릿 (PDF/엑셀)</td>
+<td>보조 상품·무료 샘플 겸용. 전환 도구</td>
+</tr>
+<tr class="odd">
+<td>70</td>
+<td>영역 진단 테스트 (무료, 30문항)</td>
+<td>신뢰 확보 + 상품 추천</td>
+</tr>
+<tr class="even">
+<td>71</td>
+<td>대학별 2027학년도 요강 변경 요약 (무료)</td>
+<td>블로그·검색 유입용</td>
+</tr>
+<tr class="odd">
+<td>72</td>
+<td>영어 시간관리 워크북 (40문항 70분 훈련)</td>
+<td>시험 형식 변경(한양 35→40문항) 대응</td>
+</tr>
+</tbody>
+</table>
+<p><strong>정리:</strong> 총 후보 72종 중 '통합' 처리 후 <strong>실제
+독립 상품 약 40종</strong>. 보류 약 20종은 요강·검수자 확인 전까지
+제작하지 않는다.</p>
+<hr />
+<h2 id="5-판매-가능성이-높은-핵심-상품-20종-추정">5. 판매 가능성이 높은
+핵심 상품 20종 [추정]</h2>
+<p>선정 기준: 시험 형식 확인 가능성 / 검수 부담 / 시즌 적합 / 검색
+의도와의 일치. (우선순위 순)</p>
+<ol type="1">
+<li>한양대 자연계 수학 모의고사 (#37/68)</li>
+<li>한양대 인문 영어 모의고사 (#37)</li>
+<li>중앙대 영어 모의고사 (#36)</li>
+<li>한국외대 인문 영어 모의고사 (#41)</li>
+<li>영어 파이널 100제 (#21)</li>
+<li>핵심 문법 300제 (#6)</li>
+<li>문법 오류 찾기 200제 (#7)</li>
+<li>논리완성 200제 (#15)</li>
+<li>중급 독해 200제 (#11)</li>
+<li>고난도 어휘 300제 (#2)</li>
+<li>미분법 200제 (#25)</li>
+<li>적분법 200제 (#26)</li>
+<li>선형대수 200제 (#29)</li>
+<li>수학 실전 모의고사 10회 (#34)</li>
+<li>영어 실전 모의고사 10회 (#20)</li>
+<li>자연계열 모의고사 (#53)</li>
+<li>다변수미적분 200제 (#27)</li>
+<li>고난도 독해 200제 (#12)</li>
+<li>오답노트+플래너 (#69, 보조)</li>
+<li>영어 COMPLETE 200P (#19)</li>
+</ol>
+<hr />
+<h2 id="6-초기-출시-상품-10종">6. 초기 출시 상품 10종</h2>
+<p>시즌(1월 필기)을 감안해 <strong>짧고 검증 가능한 상품부터</strong>
+낸다. 200P급은 제작·검수에 시간이 필요해 후순위.</p>
+<table>
+<thead>
+<tr class="header">
+<th>순서</th>
+<th>상품</th>
+<th>형태</th>
+<th>목표 출시</th>
+<th>선행 조건</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>무료: 진단 테스트 30문항 + 오답노트 템플릿 (#70, #69)</td>
+<td>40쪽</td>
+<td>1~2주</td>
+<td>홈페이지·결제·워터마킹</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>한양대 자연계 수학 모의고사 (25문항×3회)</td>
+<td>약 80쪽</td>
+<td>5주</td>
+<td>요강 PDF 대조, 수학 이중 풀이 검증</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>한양대 인문 영어 모의고사 (40문항×3회)</td>
+<td>약 80쪽</td>
+<td>5~6주</td>
+<td>〃</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>중앙대 영어 모의고사 (40문항×3회)</td>
+<td>약 80쪽</td>
+<td>6주</td>
+<td>요강 확인</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>한국외대 인문 영어 모의고사 (50문항×3회)</td>
+<td>약 90쪽</td>
+<td>7주</td>
+<td>요강 공식본 확인</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>영어 파이널 100제</td>
+<td>약 100쪽</td>
+<td>8주</td>
+<td>문항 풀 확보</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>고난도 어휘 300제</td>
+<td>약 120쪽</td>
+<td>8~9주</td>
+<td>검수</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>문법 오류 찾기 200제</td>
+<td>약 130쪽</td>
+<td>10주</td>
+<td>검수</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>미분법 200제 (200P 확장은 2월)</td>
+<td>100P판 우선</td>
+<td>11주</td>
+<td>수학 검수</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>논리완성 200제</td>
+<td>약 150쪽</td>
+<td>12주</td>
+<td>검수</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>시험이 1월 초·중순이므로 11월 초 이후 출시 상품은 '직전 점검' 용도로
+홍보. 이후 상품은 <strong>2027 시즌 준비기(2~10월)</strong> 수요를
+겨냥한다.</p>
+</blockquote>
+<hr />
+<h2 id="7-카테고리별-상세-목차페이지-구성">7. 카테고리별 상세
+목차·페이지 구성</h2>
+<h3 id="7-1-표준-200p-문제집-구조-영어">7-1. 표준 200P 문제집 구조
+(영어)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>구간</th>
+<th>쪽</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>표지·이용안내</td>
+<td>2</td>
+<td>기준 요강, 개정일, 정오표 QR/링크</td>
+</tr>
+<tr class="even">
+<td>학습 가이드·플래너</td>
+<td>4</td>
+<td>진도표, 시간 배분</td>
+</tr>
+<tr class="odd">
+<td>핵심 개념 요약</td>
+<td>8</td>
+<td>유형별 1쪽 요약</td>
+</tr>
+<tr class="even">
+<td>문제편</td>
+<td>약 75</td>
+<td>난이도 ★1~★3, 6~8문항/쪽 (독해는 지문 1쪽+문제)</td>
+</tr>
+<tr class="odd">
+<td>정답</td>
+<td>2</td>
+<td>일괄 정답표</td>
+</tr>
+<tr class="even">
+<td>상세 해설</td>
+<td>약 100</td>
+<td>정답 근거, 오답 선지 분석, 오답 원인 태그</td>
+</tr>
+<tr class="odd">
+<td>오답노트</td>
+<td>6</td>
+<td>인쇄용 양식</td>
+</tr>
+<tr class="even">
+<td>Final Review</td>
+<td>6</td>
+<td>반복 오답 유형 20문항</td>
+</tr>
+<tr class="odd">
+<td>부록</td>
+<td>4</td>
+<td>유형별 체크리스트, 정오표</td>
+</tr>
+</tbody>
+</table>
+<h3 id="7-2-수학-200p-구조">7-2. 수학 200P 구조</h3>
+<ul>
+<li>문제 약 60쪽(1쪽 2~3문항, 수식 공간), 해설 약 120쪽(정석 풀이+단축
+풀이+검증 계산), 개념 요약 12쪽, 공식 정리 4쪽. **풀이 분량이 많으므로
+문항 수를 영어보다 낮게(약 180~200)** 설계한다.</li>
+</ul>
+<h3 id="7-3-대학별-모의고사-구조-예-한양대-자연계-수학">7-3. 대학별
+모의고사 구조 (예: 한양대 자연계 수학)</h3>
+<ol type="1">
+<li>시험 정보 (모집요강 근거: 25문항, 객관식 20+단답형 5, 70분)</li>
+<li>모의고사 3회(각 25문항) — 실제 배점·시간</li>
+<li>정답·해설, 채점표, 영역별 취약 분석, 시간 배분 기록표</li>
+<li>변경 이력(연도별 형식 변화) — 한양 35→40문항(인문), 영어 폐지(자연)
+같은 변화 [확인]</li>
+</ol>
+<h3 id="7-4-카테고리별-개요">7-4. 카테고리별 개요</h3>
+<ul>
+<li><strong>어휘:</strong> 일 단위(Day 1~N) + 복습 테스트 + 누적
+시험.</li>
+<li><strong>문법:</strong> 개념→기본→응용→실전 4단계. 유형당 문항 수
+편중 방지(유형별 최소 문항 수 정의).</li>
+<li><strong>독해/논리:</strong> 지문당 난이도 표기, 지문 어휘 수, 풀이
+권장 시간, 구조도 해설.</li>
+<li><strong>수학:</strong> 단원별 난이도(기본/응용/고난도), 연산 검증
+로그, 출제 범위 표.</li>
+<li><strong>면접·서류:</strong> 보조 자료이며 대학별 실제 시행
+여부·제출서류를 확인한 대학만 포함.</li>
+</ul>
+<hr />
+<h2 id="8-상품-가격표">8. 상품 가격표</h2>
+<h3 id="8-1-a안-권고-출시가--시중가-대비-154배-수준">8-1. A안 (권고
+출시가) — 시중가 대비 1.5~4배 수준</h3>
+<table>
+<thead>
+<tr class="header">
+<th>구분</th>
+<th>설명</th>
+<th>가격(원)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>무료</td>
+<td>진단 테스트, 오답노트·플래너</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>보조</td>
+<td>워크북·플래너</td>
+<td>4,900~14,000</td>
+</tr>
+<tr class="odd">
+<td>Final Review / 파이널</td>
+<td>100제 내외</td>
+<td>14,000~24,000</td>
+</tr>
+<tr class="even">
+<td>단일 영역 100P</td>
+<td>어휘·모의고사 등</td>
+<td>29,000~39,000</td>
+</tr>
+<tr class="odd">
+<td>전문 문제집 200P</td>
+<td>문법·독해·논리·수학 200제</td>
+<td>49,000~69,000</td>
+</tr>
+<tr class="even">
+<td>대학별 모의고사</td>
+<td>3~5회</td>
+<td>29,000~49,000</td>
+</tr>
+<tr class="odd">
+<td>종합 패키지 300P</td>
+<td>번들</td>
+<td>89,000~119,000</td>
+</tr>
+</tbody>
+</table>
+<h3 id="8-2-b안-사용자-가설가--고가-시나리오-시험용">8-2. B안 (사용자
+가설가) — 고가 시나리오 시험용</h3>
+<p>단일 100P 99~129천, 200P 179~220천, 패키지 279~330천, 대학별
+79~149천, Final Review 29~49천.</p>
+<ul>
+<li><strong>리스크:</strong> 확인된 서점 교재 정가(24,300~44,100원)의
+4~10배. 신규 브랜드·무후기 상태로는 검증되지 않음.</li>
+<li><strong>시험 방법:</strong> 대학별 모의고사 1개와 200P 1개에 한해
+B안을 **한정 노출(A/B 테스트)**하고, 표본 규모와 결과를 기록한 뒤 판단.
+전환율 기준을 사전에 정하지 않고 결과를 사후에 숫자로 해석하는 방식은
+피한다.</li>
+</ul>
+<h3 id="8-3-가격-책정-원칙">8-3. 가격 책정 원칙</h3>
+<ul>
+<li>쪽수·문항 수가 아니라 <strong>검수 비용·시험 적합성</strong>으로
+가격 근거를 설명.</li>
+<li>개정 시 구매자 무료 업데이트(1시즌).</li>
+<li>환불·청약철회 정책은 전자상거래법상 디지털 콘텐츠 규정에 맞춰
+공지(법률 확인 필요 [미확인]).</li>
+<li>번들 할인으로 객단가를 올리되 정가의 가짜 할인 표시 금지.</li>
+</ul>
+</body>
+</html>

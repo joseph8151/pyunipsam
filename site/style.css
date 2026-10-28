@@ -1,0 +1,6 @@
+:root{color-scheme:light dark}
+body{font:16px/1.7 -apple-system,"Noto Sans KR",sans-serif;max-width:1000px;margin:0 auto;padding:16px}
+table{border-collapse:collapse;display:block;overflow-x:auto}
+th,td{border:1px solid #8885;padding:4px 8px;font-size:14px}
+pre{overflow-x:auto;padding:12px;background:#8881}
+nav a{margin-right:12px}
