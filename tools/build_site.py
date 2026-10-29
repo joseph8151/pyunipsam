@@ -33,8 +33,8 @@ UNIV = [
 
 CSS = """
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
-:root{--bg:#fbfbfd;--fg:#0f172a;--mu:#64748b;--ac:#2f4bff;--ac2:#6a5cff;--bd:#e6e9f0;--sf:#ffffff;--tint:#eef1ff;--sh:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06)}
-@media (prefers-color-scheme:dark){:root{--bg:#0b0f1a;--fg:#e9edf6;--mu:#94a0b8;--ac:#7f95ff;--ac2:#a79bff;--bd:#222a3b;--sf:#121827;--tint:#19213a;--sh:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35)}}
+:root{--bg:#fbfbfd;--fg:#0f172a;--mu:#64748b;--ac:#1e3a8a;--ac2:#1e40af;--bd:#e6e9f0;--sf:#ffffff;--tint:#eaf0fb;--sh:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06)}
+@media (prefers-color-scheme:dark){:root{--bg:#0b0f1a;--fg:#e9edf6;--mu:#94a0b8;--ac:#7ea3ff;--ac2:#5f8cf5;--bd:#222a3b;--sf:#121827;--tint:#16213b;--sh:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35)}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}html,body{overflow-x:clip}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 "Pretendard Variable",Pretendard,-apple-system,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
@@ -75,7 +75,7 @@ h2+p{margin-top:0;color:var(--mu)}
 .note{display:flex;gap:10px;border:1px solid var(--bd);border-radius:14px;padding:16px 20px;background:var(--tint);margin:24px 0;font-size:14.5px}
 .cta{margin:64px 0 8px;padding:40px;border-radius:24px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff}
 .cta h2{margin:0 0 6px;color:#fff}.cta p{margin:0 0 20px;color:rgba(255,255,255,.82)}
-.cta .btn{background:#fff;color:#2f2fb8;box-shadow:none}
+.cta .btn{background:#fff;color:#1e3a8a;box-shadow:none}
 details{border:1px solid var(--bd);background:var(--sf);border-radius:14px;padding:4px 20px;margin:10px 0}
 summary{cursor:pointer;font-weight:600;padding:14px 0}details p{margin-top:0;color:var(--mu)}
 footer{border-top:1px solid var(--bd);margin-top:72px;padding:36px 0 48px;color:var(--mu);font-size:13.5px}
