@@ -1,0 +1,10 @@
+{
+  "_설명": "실제로 존재하는 샘플 파일만 등록하세요. 파일이 site/ 아래에 없으면 다운로드 버튼은 비활성입니다. products: 상품별 PDF 샘플(미리보기 포함), free: 무료 샘플.",
+  "products": {},
+  "free": {
+    "free-note": {
+      "file": "samples/ohdap-note.pdf",
+      "title": "오답노트 양식"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /plan/
+Disallow: /cart.html
+Disallow: /compare.html
+Disallow: /api/
+Sitemap: https://pyunipsam.yorkboy.workers.dev/sitemap.xml
