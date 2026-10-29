@@ -32,30 +32,55 @@ UNIV = [
 ]
 
 CSS = """
-:root{--bg:#fff;--fg:#1c2330;--mu:#5d6778;--ac:#1a56db;--bd:#e3e7ee;--sf:#f5f7fb}
-@media (prefers-color-scheme:dark){:root{--bg:#10141c;--fg:#e8ecf3;--mu:#98a2b3;--ac:#7aa2ff;--bd:#272e3b;--sf:#171c27}}
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+:root{--bg:#fbfbfd;--fg:#0f172a;--mu:#64748b;--ac:#2f4bff;--ac2:#6a5cff;--bd:#e6e9f0;--sf:#ffffff;--tint:#eef1ff;--sh:0 1px 2px rgba(15,23,42,.04),0 8px 24px rgba(15,23,42,.06)}
+@media (prefers-color-scheme:dark){:root{--bg:#0b0f1a;--fg:#e9edf6;--mu:#94a0b8;--ac:#7f95ff;--ac2:#a79bff;--bd:#222a3b;--sf:#121827;--tint:#19213a;--sh:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35)}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 -apple-system,"Noto Sans KR","Apple SD Gothic Neo",sans-serif}
+html{scroll-behavior:smooth}html,body{overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 "Pretendard Variable",Pretendard,-apple-system,"Noto Sans KR","Apple SD Gothic Neo",sans-serif;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
 a{color:var(--ac)}
-header{border-bottom:1px solid var(--bd);position:sticky;top:0;background:var(--bg);z-index:5}
-.w{max-width:1040px;margin:0 auto;padding:0 16px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:12px}
-.logo{font-weight:800;font-size:20px;text-decoration:none;color:var(--fg)}
-nav{display:flex;gap:4px 14px;flex-wrap:wrap;font-size:14px}
-nav a{text-decoration:none;color:var(--mu)}nav a:hover,nav a.on{color:var(--ac)}
-.hero{padding:56px 0 40px}.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.25;margin:0 0 12px}
-.hero p{color:var(--mu);max-width:640px;margin:0 0 20px}
-.btn{display:inline-block;padding:10px 18px;border-radius:8px;background:var(--ac);color:#fff;text-decoration:none;font-weight:600}
-.btn.o{background:none;border:1px solid var(--bd);color:var(--fg)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:16px 0 32px}
-.card{border:1px solid var(--bd);background:var(--sf);border-radius:12px;padding:16px}
-.card h3{margin:0 0 6px;font-size:17px}.card p{margin:0 0 8px;color:var(--mu);font-size:14px}
-.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--bd);color:var(--mu)}
+.w{max-width:1080px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid var(--bd)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;text-decoration:none;color:var(--fg);letter-spacing:-.03em}
+.mark{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,var(--ac),var(--ac2));display:grid;place-items:center;color:#fff;font-size:15px;font-weight:800}
+nav{display:flex;gap:2px;flex-wrap:wrap;font-size:14px;font-weight:500}
+nav a{text-decoration:none;color:var(--mu);padding:6px 11px;border-radius:99px;transition:.15s}
+nav a:hover{color:var(--fg);background:var(--tint)}nav a.on{color:var(--ac);background:var(--tint)}
+@media(max-width:820px){.top{flex-direction:column;align-items:flex-start;gap:8px}nav{margin-inline:-11px}}
+.hero{position:relative;padding:84px 0 64px}
+.hero:before{content:"";position:absolute;inset:-10% -12% auto auto;width:640px;height:640px;background:radial-gradient(closest-side,color-mix(in srgb,var(--ac2) 28%,transparent),transparent);z-index:-1;filter:blur(10px)}
+.hero:after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse at 75% 20%,#000,transparent 65%);-webkit-mask-image:radial-gradient(ellipse at 75% 20%,#000,transparent 65%);opacity:.55;z-index:-2}
+.eyebrow{display:inline-block;font-size:13px;font-weight:600;color:var(--ac);background:var(--tint);padding:5px 12px;border-radius:99px;margin-bottom:18px}
+.hero h1{font-size:clamp(34px,6vw,60px);line-height:1.15;letter-spacing:-.04em;margin:0 0 18px;font-weight:800}
+.hero h1 em{font-style:normal;background:linear-gradient(120deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mu);font-size:18px;max-width:560px;margin:0 0 30px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:12px 22px;border-radius:12px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;text-decoration:none;font-weight:600;box-shadow:0 6px 18px color-mix(in srgb,var(--ac) 35%,transparent);transition:transform .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn.o{background:var(--sf);border:1px solid var(--bd);color:var(--fg);box-shadow:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:20px 0 40px}
+.card{display:block;position:relative;border:1px solid var(--bd);background:var(--sf);border-radius:18px;padding:22px;box-shadow:var(--sh);transition:transform .18s,border-color .18s}
+a.card{text-decoration:none;color:inherit}a.card h3{color:var(--fg)}
+a.card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--ac) 45%,var(--bd))}
+.card h3{margin:0 0 8px;font-size:18px;letter-spacing:-.025em}
+.card p{margin:0 0 10px;color:var(--mu);font-size:14.5px;line-height:1.65}
+.card .go{color:var(--ac);font-size:14px;font-weight:600;text-decoration:none}
+.num{font-size:13px;font-weight:700;color:var(--ac);letter-spacing:.04em;margin-bottom:10px;display:block}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--tint);color:var(--ac);margin-bottom:12px}
 .meta{font-size:13px;color:var(--mu)}
-h2{margin:36px 0 4px}h2+p{margin-top:0;color:var(--mu)}
-.note{border-left:3px solid var(--ac);padding:8px 14px;background:var(--sf);margin:16px 0;font-size:14px}
-footer{border-top:1px solid var(--bd);margin-top:48px;padding:24px 0;color:var(--mu);font-size:13px}
-details{border:1px solid var(--bd);border-radius:8px;padding:8px 14px;margin:8px 0}summary{cursor:pointer;font-weight:600}
+main h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.035em;margin:56px 0 8px;font-weight:800}
+main h1+p{color:var(--mu);font-size:17px;max-width:680px;margin:0 0 8px}
+h2{font-size:24px;letter-spacing:-.03em;margin:52px 0 4px;font-weight:700}
+h2+p{margin-top:0;color:var(--mu)}
+.note{display:flex;gap:10px;border:1px solid var(--bd);border-radius:14px;padding:16px 20px;background:var(--tint);margin:24px 0;font-size:14.5px}
+.cta{margin:64px 0 8px;padding:40px;border-radius:24px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff}
+.cta h2{margin:0 0 6px;color:#fff}.cta p{margin:0 0 20px;color:rgba(255,255,255,.82)}
+.cta .btn{background:#fff;color:#2f2fb8;box-shadow:none}
+details{border:1px solid var(--bd);background:var(--sf);border-radius:14px;padding:4px 20px;margin:10px 0}
+summary{cursor:pointer;font-weight:600;padding:14px 0}details p{margin-top:0;color:var(--mu)}
+footer{border-top:1px solid var(--bd);margin-top:72px;padding:36px 0 48px;color:var(--mu);font-size:13.5px}
+.fl{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}.fl b{color:var(--fg)}
+footer a{color:var(--mu)}
 """
 
 def page(fname, title, body, desc="대학 편입시험 전문 PDF 문제집. 필요한 문제만, 정확하게."):
@@ -64,17 +89,15 @@ def page(fname, title, body, desc="대학 편입시험 전문 PDF 문제집. 필
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)}</title><meta name="description" content="{html.escape(desc)}">
 <link rel="stylesheet" href="style.css"></head><body>
-<header><div class="w top"><a class="logo" href="index.html">편입샘</a><nav>{nav}</nav></div></header>
+<header><div class="w top"><a class="logo" href="index.html"><span class="mark">편</span>편입샘</a><nav>{nav}</nav></div></header>
 <main class="w">{body}</main>
-<footer><div class="w">편입샘 — 대학 편입시험 전문 문제집 · 필요한 문제만, 정확하게.<br>
-편입샘은 학원·과외·컨설팅이 아닌 PDF 문제집 브랜드입니다. 합격을 보장하지 않으며, 대학별 시험 정보는 해당 연도 공식 모집요강이 우선합니다.<br>
-<a href="plan/index.html">사업 기획서</a> · <a href="guide.html">이용 안내</a></div></footer></body></html>"""
+<footer><div class="w fl"><div><b>편입샘</b> — 대학 편입시험 전문 문제집<br>필요한 문제만, 정확하게.</div><div style="max-width:520px">편입샘은 학원·과외·컨설팅이 아닌 PDF 문제집 브랜드입니다. 합격을 보장하지 않으며, 대학별 시험 정보는 해당 연도 공식 모집요강이 우선합니다.<br><a href="guide.html">이용 안내</a> · <a href="plan/index.html">기획서</a></div></div></footer></body></html>"""
     (OUT / fname).write_text(doc, encoding="utf-8")
 
 def card(name, desc, meta, extra=""):
     return (f'<div class="card"><span class="tag">출시 예정</span><h3>{html.escape(name)}</h3>'
             f'<p>{html.escape(desc)}</p><div class="meta">{html.escape(meta)}{extra}</div>'
-            f'<p style="margin-top:10px"><a href="{CONTACT}">출시 알림 신청</a></p></div>')
+            f'<a class="go" href="{CONTACT}">출시 알림 신청 →</a></div>')
 
 def section_page(fname, title, lead, groups):
     b = f"<h1>{title}</h1><p>{lead}</p>"
@@ -91,17 +114,19 @@ def build():
             ("math.html", "편입수학", "미적분·선형대수, 계산 검증을 거친 풀이"),
             ("univ.html", "대학별 모의고사", "실제 모집요강의 문항 수·시간·형식 기준"),
             ("free.html", "무료 샘플", "진단 테스트·샘플 해설·오답노트")]
-    home = f"""<section class="hero"><h1>대학 편입시험 전문 문제집</h1>
-<p>필요한 문제만, 정확하게. 편입영어·편입수학·대학별 모의고사를 PDF 문제집으로 제작합니다.</p>
-<a class="btn" href="free.html">무료 샘플 보기</a> <a class="btn o" href="univ.html">대학별 모의고사</a></section>
-<h2>카테고리</h2><div class="grid">""" + "".join(
-        f'<a class="card" href="{h}" style="text-decoration:none;color:inherit"><h3>{t}</h3><p>{d}</p></a>' for h, t, d in cats) + """</div>
-<h2>편입샘이 지키는 기준</h2><div class="grid">
-<div class="card"><h3>정확성</h3><p>문항마다 정답이 하나인지 독립 풀이와 전문가 검수로 확인한 뒤 판매합니다.</p></div>
-<div class="card"><h3>요강 기준</h3><p>대학별 모의고사는 해당 연도 모집요강의 문항 수·시간·형식 기준으로 만듭니다. 존재하지 않는 시험은 만들지 않습니다.</p></div>
-<div class="card"><h3>오답 중심 해설</h3><p>정답 근거뿐 아니라 오답 선지가 틀린 이유까지 설명합니다.</p></div>
-<div class="card"><h3>독창 문항</h3><p>대학 기출문제를 복제하지 않고 새로 제작합니다.</p></div></div>
-<div class="note">현재 첫 상품들을 제작·검수 중입니다. 출시 알림을 신청하시면 가장 먼저 안내해 드립니다. <a href=\"""" + CONTACT + """\">알림 신청</a></div>"""
+    principles = [("정확성", "문항마다 정답이 하나인지 독립 풀이와 전문가 검수로 확인한 뒤 판매합니다."),
+                  ("요강 기준", "해당 연도 모집요강의 문항 수·시간·형식 기준으로 제작합니다. 존재하지 않는 시험은 만들지 않습니다."),
+                  ("오답 중심 해설", "정답 근거뿐 아니라 오답 선지가 틀린 이유까지 설명합니다."),
+                  ("독창 문항", "대학 기출문제를 복제하지 않고 새로 제작합니다.")]
+    home = """<section class="hero"><span class="eyebrow">대학 편입시험 전문 PDF 문제집</span>
+<h1>필요한 문제만,<br><em>정확하게.</em></h1>
+<p>편입영어·편입수학·대학별 모의고사를 AI 초안과 전문가 검수로 만듭니다. 시험 형식에 맞는 문제와 오답까지 설명하는 해설을 제공합니다.</p>
+<a class="btn" href="free.html">무료 샘플 보기 →</a> <a class="btn o" href="univ.html">대학별 모의고사</a></section>
+<h2>카테고리</h2><p>준비 중인 문제집을 영역별로 확인하세요.</p><div class="grid">""" + "".join(
+        f'<a class="card" href="{h}"><span class="num">0{i+1}</span><h3>{t}</h3><p>{d}</p><span class="go">자세히 보기 →</span></a>' for i,(h,t,d) in enumerate(cats)) + """</div>
+<h2>편입샘이 지키는 기준</h2><p>과장 없이, 확인된 것만 만듭니다.</p><div class="grid">""" + "".join(
+        f'<div class="card"><span class="num">0{i+1}</span><h3>{t}</h3><p>{d}</p></div>' for i,(t,d) in enumerate(principles)) + """</div>
+<section class="cta"><h2>첫 문제집 출시 알림</h2><p>제작·검수를 마치는 대로 가장 먼저 안내해 드립니다.</p><a class="btn" href=\"""" + CONTACT + """\">출시 알림 신청</a></section>"""
     page("index.html", "편입샘 — 대학 편입시험 전문 문제집", home)
 
     section_page("english.html", "편입영어", "어휘·문법·독해·논리 영역별 문제집", ENGLISH)
