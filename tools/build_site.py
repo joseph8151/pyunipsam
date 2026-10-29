@@ -9,6 +9,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from catalog_products import PRODUCTS, BY_ID, CATS, SUBS, DIFF, LEGACY_MERGE
 from catalog_univ import UNIVS, UNIV_BY_SLUG, ARTICLES, ARTICLE_PENDING, CHECKED, YEAR, LEVEL_LABEL, CAND_TYPES
 import covers
+import sample_content as sc
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "site"
@@ -50,7 +51,7 @@ def merge_sales():
             p["status"] = overrides[p["id"]]
         sm = samples["products"].get(p["id"])
         p["sample"] = None
-        if sm and (OUT / sm["file"]).exists():
+        if sm and (OUT / sm["file"]).exists() and (OUT / sm.get("solution", sm["file"])).exists():
             p["sample"] = sm
         if p["status"] == "on_sale":
             if not p["price"]:
@@ -106,9 +107,9 @@ def badge(p):
 
 
 # ───────────────────────── 공통 레이아웃 ─────────────────────────
-LOGO = ('<svg class="mark" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="3" fill="#16263D"/>'
-        '<path d="M7 8.5h6.2c.5 0 .8.3.8.8V20c-.5-.5-1.2-.8-2-.8H7z M21 8.5h-6.2c-.5 0-.8.3-.8.8V20c.5-.5 1.2-.8 2-.8H21z" '
-        'fill="none" stroke="#F8F7F3" stroke-width="1.3" stroke-linejoin="round"/><rect x="7" y="22" width="14" height="1.3" fill="#B89B68"/></svg>')
+MARK_PATH = ('<path d="M7 8.5h6.2c.5 0 .8.3.8.8V20c-.5-.5-1.2-.8-2-.8H7z M21 8.5h-6.2c-.5 0-.8.3-.8.8V20c.5-.5 1.2-.8 2-.8H21z" '
+             'fill="none" stroke="#242321" stroke-width="1.4" stroke-linejoin="round"/><rect x="7" y="22" width="14" height="1.3" fill="#F4F1EB"/>')
+LOGO = ('<svg class="mark" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="3" fill="#BAA58C"/>' + MARK_PATH + '</svg>')
 
 ICON_SEARCH = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>'
 ICON_CART = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 4h2.5l2 11h10.5l2-8H6.5"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>'
@@ -178,7 +179,7 @@ def page(path, title, desc, body, active="", extra_head="", body_class="", jsonl
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(full_title)}</title><meta name="description" content="{esc(desc)}">{rb}
 <meta property="og:type" content="website"><meta property="og:site_name" content="편입샘"><meta property="og:title" content="{esc(full_title)}"><meta property="og:description" content="{esc(desc)}">
-<meta name="theme-color" content="#16263D">
+<meta name="theme-color" content="#33312F">
 <link rel="icon" href="{R}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="{R}assets/style.css">{extra_head}{ld}
@@ -245,6 +246,29 @@ SUBJ = {  # 대학별 시험 과목/계열 (필터용, 확인 수준은 대학 �
 }
 
 
+def sample_cards(R, samples, free_page=False):
+    """과목별 샘플 카드: 문제집·해설집 두 권 세트 + 오답노트."""
+    fr = samples["free"]
+    def ok(k):
+        s_ = fr.get(k)
+        return s_ if (s_ and (OUT / s_["file"]).exists()) else None
+    out = ""
+    desc = {"eng": "빈칸 추론 1문항 — 문제집 1쪽과 해설집 2쪽(본문 번역·구성·제목·주제·요지·요약·문장별 분석·선택지 해부)",
+            "math": "미분·적분·선형대수 3문항 — 문제집과 해설집(정석 풀이·단축 풀이·계산 검증·오답 선지 분석)",
+            "univ": "한양대 자연계 수학 형식(25문항·70분 기준)의 3문항 — 객관식 2 + 단답형 1"}
+    for key, meta in sc.SAMPLE_SETS.items():
+        q, so = ok(key + "-q"), ok(key + "-s")
+        bq = f'<a class="btn pri" href="{R}{q["file"]}" download>문제집 PDF</a>' if q else '<button class="btn dis" disabled>문제집 준비 중</button>'
+        bs = f'<a class="btn" href="{R}{so["file"]}" download>해설집 PDF</a>' if so else '<button class="btn dis" disabled>해설집 준비 중</button>'
+        out += (f'<div class="fc sc"><span class="badge {"s-sample" if (q and so) else "s-draft"}">{"문제집 + 해설집" if (q and so) else "준비 중"}</span>'
+                f'<h3>{meta["label"]} 샘플</h3><p>{desc[key]}</p>'
+                f'<div class="sc-b">{bq}{bs}</div><a class="lk" href="{R}sample/{key}.html">화면으로 미리 보기 →</a></div>')
+    n = ok("free-note")
+    bn = f'<a class="btn pri" href="{R}{n["file"]}" download>PDF 다운로드</a>' if n else '<button class="btn dis" disabled>준비 중</button>'
+    out += f'<div class="fc sc"><span class="badge {"s-sample" if n else "s-draft"}">{"다운로드 가능" if n else "준비 중"}</span><h3>오답노트 양식</h3><p>오답 원인 태그를 적어 두는 인쇄용 A4 양식입니다. 해설집을 읽은 뒤 바로 기록하세요.</p><div class="sc-b">{bn}</div></div>'
+    return out
+
+
 def build_home():
     R = ""
     hero_ids = ["p13", "p27", "u01", "p58"]
@@ -255,10 +279,10 @@ def build_home():
     feat_note = ("판매 중인 상품입니다." if onsale else
                  "현재 판매 중인 상품은 없습니다. 아래는 제작 준비 중인 <b>출시 예정</b> 상품이며, 출시 알림을 신청할 수 있습니다.")
 
-    eng_cols = [("vocab", "어휘", "#6FA8A0", "p02", "뜻을 아는 단어와 문맥에서 구분하는 단어는 다릅니다."),
-                ("grammar", "문법", "#D08C60", "p06", "개념 요약과 오답 원인 태그로 약한 영역을 찾습니다."),
-                ("reading", "독해", "#8E9BD6", "p12", "오답 선지마다 지문의 근거 문장을 표시합니다."),
-                ("logic", "논리", "#B58DB6", "p17", "빈칸 전후의 관계를 먼저 읽는 순서를 익힙니다.")]
+    eng_cols = [("vocab", "어휘", covers.SUB_COLOR["vocab"], "p02", "뜻을 아는 단어와 문맥에서 구분하는 단어는 다릅니다."),
+                ("grammar", "문법", covers.SUB_COLOR["grammar"], "p06", "개념 요약과 오답 원인 태그로 약한 영역을 찾습니다."),
+                ("reading", "독해", covers.SUB_COLOR["reading"], "p12", "오답 선지마다 지문의 근거 문장을 표시합니다."),
+                ("logic", "논리", covers.SUB_COLOR["logic"], "p17", "빈칸 전후의 관계를 먼저 읽는 순서를 익힙니다.")]
     eng = "".join(f'''<a class="col" href="english.html#{k}" style="--c:{c}"><div class="cvw">{cover(BY_ID[pid], R)}</div>
 <span class="bar"></span><h3>{t}</h3><p>{d}</p><span class="more">{len(by("english", k))}종 보기 →</span></a>''' for k, t, c, pid, d in eng_cols)
     math_cols = [("base", "기초수학", "p25", "함수·방정식·삼각함수 등 선수 개념을 정리합니다."),
@@ -271,22 +295,12 @@ def build_home():
     comp_ids = [("p55", "편입영어 COMPLETE"), ("p58", "편입수학 COMPLETE"), ("p56", "READING & LOGIC"), ("p59", "CALCULUS"), ("p61", "대학별 FINAL")]
     comp = "".join(f'<a class="cc" href="p/{pid}.html"><div class="cvw">{cover(BY_ID[pid], R)}</div><h3>{esc(BY_ID[pid]["title"])}</h3><p>{esc(BY_ID[pid]["summary"])}</p></a>' for pid, _ in comp_ids)
 
-    free = [("편입영어 샘플", "문제 5문항과 해설 3문항으로 해설 방식을 미리 확인합니다.", "free-eng"),
-            ("편입수학 샘플", "정석 풀이와 단축 풀이가 함께 나오는 해설 샘플입니다.", "free-math"),
-            ("대학별 모의고사 샘플", "실제 시험 형식으로 구성된 1회분 샘플입니다.", "free-univ"),
-            ("오답노트", "오답 원인을 기록하는 인쇄용 양식입니다.", "free-note")]
-    samples = load_json("samples.json", {"free": {}})["free"]
-    fcards = ""
-    for t, d, k in free:
-        s = samples.get(k)
-        ok = bool(s and (OUT / s["file"]).exists())
-        btn = (f'<a class="btn" href="{s["file"]}" download>PDF 다운로드</a>' if ok else '<button class="btn dis" disabled>샘플 준비 중</button>')
-        fcards += f'<div class="fc"><h3>{t}</h3><p>{d}</p>{btn}</div>'
+    fcards = sample_cards(R, load_json("samples.json", {"free": {}, "products": {}}))
 
     crit = [("출제 범위 확인", "대학별 모의고사는 해당 연도 모집요강의 문항 수·시간·형식을 근거로 설계합니다. 확인하지 못한 시험은 상품으로 만들지 않습니다."),
             ("독창 문항 제작", "대학 기출문제를 복제하지 않고 새로 제작합니다."),
             ("정답 및 풀이 검증", "AI 초안을 독립 풀이와 계산 검증으로 점검하고, 전문가가 정답을 확인합니다."),
-            ("상세 해설 구성", "정답의 근거와 오답 선지가 틀린 이유까지 설명합니다.")]
+            ("상세 해설 구성", "본문 번역, 문장별 분석, 정답 근거, 오답 선지가 틀린 이유까지 해설집에 담습니다.")]
     crit_h = "".join(f'<li><span class="n">0{i+1}</span><h3>{t}</h3><p>{d}</p></li>' for i, (t, d) in enumerate(crit))
     reviewed = sum(1 for p in PRODUCTS if p.get("reviewed"))
 
@@ -309,7 +323,39 @@ def build_home():
   <div class="cta"><a class="btn pri" href="products.html">전체 문제집 보기</a><a class="btn" href="univ.html">대학별 모의고사 보기</a></div>
  </div>
  <div class="hr" aria-hidden="true">{hero_cov}</div>
+</div>
+<div class="facts"><div class="w">
+  <div><b>{len(PRODUCTS)}종<i>기획·제작 준비</i></b>영어·수학·대학별·전공·면접·패키지</div>
+  <div><b>{len(UNIVS)}개 대학<i>편입정보</i></b>확인 수준과 출처를 함께 표시</div>
+  <div><b>{reviewed}종<i>검수 완료</i></b>검수를 마친 상품에만 표시합니다</div></div></div>
+</section>
+
+<section class="sec weapon"><div class="w wg">
+ <div class="wl"><span class="eb">OUR WEAPON</span>
+  <h2>해설집이 편입샘의 무기입니다.</h2>
+  <p class="wlead">정답 한 줄로 끝나는 해설은 쓰지 않습니다. 본문 번역부터 문장별 어휘·문법·연결사 분석, 오답 선지가 틀린 이유까지 — <b>밀도 있게, 스파르타로</b> 해부합니다.</p>
+  <ol class="layers">
+   <li><b>본문 번역</b><span>문장 단위 직독직해 번역</span></li>
+   <li><b>글의 구성</b><span>서론·본론·결론의 논리 흐름</span></li>
+   <li><b>제목·주제·요지·요약</b><span>영문과 번역을 함께 제시</span></li>
+   <li><b>문장별 분석</b><span>[어휘] [문법] [연결사] [빈칸] 태그</span></li>
+   <li><b>선택지 해부</b><span>오답 선지마다 틀린 이유와 근거</span></li>
+   <li><b>지문 분석 요약</b><span>논리 구조와 핵심 단서를 한 번에</span></li></ol>
+  <p class="fn">해설편이 문제편보다 두껍게 설계됩니다(설계안). 아래 샘플은 편입샘이 새로 쓴 독창 문항이며 전문가 검수 전 시안입니다.</p>
+  <div class="cta"><a class="btn pri" href="sample.html">샘플 문제집·해설집 보기</a><a class="btn" href="free.html">PDF 내려받기</a></div>
+ </div>
+ <div class="wr" aria-label="해설집 미리보기"><div class="paper"><div class="paper-h"><span>해설집 · 문장별 분석</span><span>샘플</span></div>{sc.weapon_snippet()}
+  <p class="paper-f">정답 근거와 오답 선지까지 — 해설집 한 쪽의 모습</p></div></div>
 </div></section>
+
+<section class="sec dark selfstudy"><div class="w">{sec_head("SELF STUDY", "선생님 없이도 끝까지. 셀프스터디를 위해 만듭니다.", "혼자 공부하는 수험생이 해설집만 펴고도 막힌 곳을 스스로 찾아 고칠 수 있도록 설계합니다. 개별 질의응답과 첨삭은 제공하지 않습니다. 그래서 해설이 더 촘촘해야 한다고 생각합니다.", True)}
+ <ol class="loop">
+  <li><span>01</span><b>진단</b><p>영역별 정답률을 기록해 약한 곳부터 찾습니다.</p></li>
+  <li><span>02</span><b>시간 재고 풀기</b><p>권장 풀이 시간을 기준으로 실제처럼 풉니다.</p></li>
+  <li><span>03</span><b>해설 정독</b><p>정답이어도 선택지 해부까지 끝까지 읽습니다.</p></li>
+  <li><span>04</span><b>오답노트</b><p>오답 원인 태그를 적어 같은 실수를 추적합니다.</p></li>
+  <li><span>05</span><b>재풀이</b><p>복습일에 오답만 다시 풀고 기록을 비교합니다.</p></li></ol>
+ <div class="cta"><a class="btn pri" href="sample.html">셀프스터디 샘플 해보기</a><a class="btn" href="free.html#note">오답노트 양식 받기</a></div></div></section>
 
 <section class="sec w">{sec_head("CATEGORY", "나에게 필요한 편입 문제집", "영역을 고르면 세부 분류와 상품을 볼 수 있습니다.")}
  <div class="catgrid">{cat_h}</div></section>
@@ -334,8 +380,8 @@ def build_home():
  <div class="cmpnote"><div><h3>개별 상품과 무엇이 다른가요?</h3><p>개별 문제집은 한 영역을 깊게 다루고, 패키지는 영역 순서와 학습 흐름까지 설계한 묶음입니다. 패키지의 구성품은 상세페이지에서 확인할 수 있으며, 구성 문제집이 모두 완성·검수되기 전에는 판매하지 않습니다.</p></div>
  <a class="btn gold" href="complete.html">패키지 전체 보기</a></div></div></section>
 
-<section class="sec w" id="free">{sec_head("FREE SAMPLE", "문제와 해설을 먼저 확인하세요.", "실제 파일이 준비된 샘플만 다운로드할 수 있습니다.")}
- <div class="fgrid2">{fcards}</div></section>
+<section class="sec w" id="free">{sec_head("FREE SAMPLE", "문제와 해설을 먼저 확인하세요.", "과목별로 문제집과 해설집을 한 세트로 확인할 수 있습니다. 실제 파일이 준비된 샘플만 내려받을 수 있습니다.")}
+ <div class="fgrid2 sg">{fcards}</div></section>
 
 <section class="sec soft"><div class="w">{sec_head("OUR STANDARD", "편입샘의 제작 기준", "")}
  <ol class="crit">{crit_h}</ol>
@@ -462,7 +508,12 @@ def build_product_pages(samples):
         else:
             lab = "출시 알림 신청" if p["status"] in ("coming_soon", "draft", "sample_ready") else "판매 종료"
             buy = f'<a class="btn pri wide" href="#notify">{lab}</a>' if p["status"] != "discontinued" else '<button class="btn wide dis" disabled>판매 종료</button>'
-        sample_btn = (f'<a class="btn wide" href="../{p["sample"]["file"]}" download>샘플 PDF 다운로드</a>' if p["sample"] else '<button class="btn wide dis" disabled>샘플 준비 중</button>')
+        if p["sample"]:
+            sp = p["sample"]
+            sample_btn = (f'<a class="btn wide" href="../{sp["file"]}" download>문제집 샘플 PDF</a>'
+                          f'<a class="btn wide" href="../{sp.get("solution", sp["file"])}" download>해설집 샘플 PDF</a>')
+        else:
+            sample_btn = '<button class="btn wide dis" disabled>샘플 준비 중</button>'
         legacy = [k for k, v in LEGACY_MERGE.items() if v == p["id"]]
         spec_rows = [("분류", f"{cat} · {sub}"), ("예상 난도", p["diff"]), ("문항·구성", qlabel(p) + " (설계안)")]
         if p.get("pages"):
@@ -485,7 +536,7 @@ def build_product_pages(samples):
         if p["includes"]:
             incl = '<ul class="inc">' + "".join(f'<li><a href="../p/{c}.html">{esc(BY_ID[c]["title"])}</a> <span class="mm">{esc(meta_line(BY_ID[c]))}</span></li>' for c in p["includes"]) + "</ul>"
         legacy_note = f'<p class="fn">이전 홈페이지의 \'{esc(legacy[0])}\' 기획 상품을 이어받은 상품입니다.</p>' if legacy else ""
-        preview = (f'<iframe class="pdf" src="../{p["sample"]["file"]}" title="{esc(p["title"])} 샘플 미리보기" loading="lazy"></iframe>' if p["sample"] else
+        preview = (f'<div class="sample-links"><p>이 상품과 같은 방식으로 구성한 샘플 문제집·해설집입니다. (독창 문항 · 전문가 검수 전 시안)</p><a class="btn pri" href="../{p["sample"].get("page", "sample.html")}">샘플 화면으로 보기</a> <a class="btn" href="../{p["sample"]["file"]}" download>문제집 PDF</a> <a class="btn" href="../{p["sample"].get("solution", p["sample"]["file"])}" download>해설집 PDF</a></div>' if p["sample"] else
                    f'<div class="wfs">{wire("q")}{wire("a")}</div><p class="fn">PDF 샘플은 제작·검수가 끝나면 이 자리에서 미리볼 수 있습니다. 위 그림은 페이지 구성 시안이며 실제 문항이 아닙니다.</p>')
         tabs = "".join(f'<a href="#{i}">{t}</a>' for i, t in [("intro", "소개"), ("spec", "구성"), ("toc", "목차"), ("preview", "미리보기"), ("guide", "구매 안내"), ("notify", "알림 신청")])
         body = f"""{crumbs(R, [(cat, catfile), (sub if p['cat'] != 'univ' else univ['name'], None)])}
@@ -638,21 +689,17 @@ def build_learn():
 def build_misc(samples):
     R = ""
     # 무료 샘플
-    free = [("편입영어 샘플", "문제 5문항 + 해설 3문항", "free-eng"), ("편입수학 샘플", "정석·단축 풀이가 함께 나오는 해설 샘플", "free-math"),
-            ("대학별 모의고사 샘플", "실제 시험 형식 1회분 샘플", "free-univ"), ("오답노트 양식", "오답 원인을 기록하는 인쇄용 양식 (A4)", "free-note")]
-    cards = ""
-    for t, d, k in free:
-        s = samples["free"].get(k)
-        ok = bool(s and (OUT / s["file"]).exists())
-        btn = f'<a class="btn pri" href="{s["file"]}" download>PDF 다운로드</a>' if ok else '<button class="btn dis" disabled>샘플 준비 중</button>'
-        cards += f'<div class="fc"><span class="badge {"s-sample" if ok else "s-draft"}">{"다운로드 가능" if ok else "준비 중"}</span><h3>{t}</h3><p>{d}</p>{btn}</div>'
-    page("free.html", "무료 샘플", "문제와 해설을 먼저 확인하세요. 실제 파일이 준비된 샘플만 다운로드할 수 있습니다.",
-         crumbs(R, [("무료 샘플", None)]) + f'<div class="phead w"><h1>문제와 해설을 먼저 확인하세요.</h1><p>실제 파일이 준비된 샘플에만 다운로드 버튼이 활성화됩니다.</p></div><section class="w"><div class="fgrid2">{cards}</div></section>', active="free.html")
+    page("free.html", "무료 샘플", "과목별 문제집·해설집 샘플 PDF와 오답노트 양식. 실제 파일이 준비된 샘플만 다운로드할 수 있습니다.",
+         crumbs(R, [("무료 샘플", None)]) + f'''<div class="phead w"><h1>문제와 해설을 먼저 확인하세요.</h1><p>과목마다 문제집과 해설집을 한 세트로 제공합니다. 모든 샘플은 편입샘이 새로 만든 독창 문항이며, 전문가 검수 전 제작 방식 시연용 시안입니다.</p></div>
+<section class="w" id="note"><div class="fgrid2 sg">{sample_cards(R, samples)}</div>
+<div class="note">샘플은 판매 상품의 문항이 아니라 <b>문제집과 해설집의 구성 방식</b>을 보여 주기 위한 것입니다. 판매 상품의 문항·해설은 검수를 마친 뒤에만 공개하며, 검수를 마친 상품에만 '검수 완료'를 표시합니다.</div></section>''', active="free.html")
     # 이용 안내
     qa = [("편입샘은 어떤 곳인가요?", "대학 편입시험 대비 PDF 문제집을 제작·판매하는 브랜드입니다. 학원, 과외, 컨설팅은 하지 않습니다."),
           ("문항은 어떻게 만드나요?", "AI로 초안을 만들고, 독립 풀이와 계산 검증을 거친 뒤 영어·수학 전문가가 정답·해설·출제 범위를 검수합니다. 검수를 마치지 않은 문항은 판매하지 않으며, 검수를 마친 상품에만 '검수 완료'를 표시합니다."),
           ("기출문제를 사용하나요?", "대학 기출문제를 복제하지 않고 독창 문항으로 제작합니다."),
           ("대학별 모의고사의 기준은 무엇인가요?", "해당 학년도 대학 공식 모집요강의 문항 수·시간·형식입니다. 상품 페이지에 기준 학년도와 확인 수준을 표시하며, 요강이 바뀌면 개정합니다. 공식 확인 전에는 상품이 아닌 정보 페이지로만 제공합니다."),
+          ("혼자 공부해도 되나요?", "셀프스터디를 전제로 설계합니다. 해설집에 본문 번역, 문장별 분석, 정답 근거, 오답 선지 해부, 오답노트 양식을 담아 혼자서도 막힌 곳을 찾을 수 있게 합니다. 다만 개별 질의응답·첨삭은 제공하지 않으며, 합격이나 점수 향상을 보장하지 않습니다."),
+          ("샘플은 어디서 보나요?", "무료 샘플 메뉴에서 과목별(편입영어·편입수학·대학별 모의고사) 문제집과 해설집 PDF를 내려받을 수 있습니다. 샘플은 독창 문항이며 전문가 검수 전 시안입니다."),
           ("상품 상태 표시는 무슨 뜻인가요?", "기획 중(draft) / 출시 예정(coming_soon) / 샘플 공개(sample_ready) / 판매 중(on_sale) / 판매 종료(discontinued)입니다. '판매 중'인 상품만 구매할 수 있습니다."),
           ("지금 구매할 수 있나요?", "아직 판매 중인 상품이 없습니다. 결제 시스템이 연결되고 상품이 검수를 마치면 판매를 시작하며, 출시 알림을 신청하실 수 있습니다."),
           ("구매·환불은 어떻게 되나요?", "결제 방식, 다운로드 방법, 환불·청약철회 규정은 판매 시작 전에 이곳에 공지합니다."),
@@ -690,6 +737,33 @@ def build_misc(samples):
          crumbs(R, [("장바구니", None)]) + '<div class="phead w"><h1>장바구니</h1></div><section class="w"><div id="cartbox"></div><p class="empty" id="cartempty" hidden>장바구니가 비어 있습니다. 현재 판매 중인 상품이 없습니다. <a href="products.html">전체 문제집 보기</a></p><div class="note">결제 시스템이 연결되기 전에는 주문·결제를 할 수 없습니다. 결제가 연결되면 이 화면에서 주문이 진행됩니다.</div><button class="btn pri" disabled>결제 준비 중</button></section>', robots="noindex")
 
 
+def build_sample_pages(samples):
+    """샘플 문제집·해설집 화면. PDF 는 tools/make_sample_pdfs.js 가 이 화면에서 생성한다."""
+    R = ""
+    page("sample.html", "샘플 문제집·해설집", "편입영어·편입수학·대학별 모의고사 샘플. 과목마다 문제집과 해설집 한 세트.",
+         crumbs(R, [("무료 샘플", "free.html"), ("샘플 문제집·해설집", None)]) +
+         f'''<div class="phead w"><span class="eb">SAMPLE · PROBLEM BOOK &amp; SOLUTION BOOK</span><h1>샘플 문제집·해설집</h1>
+<p>과목마다 문제집과 해설집을 한 세트로 준비했습니다. 문제를 먼저 풀고, 해설집으로 끝까지 확인하세요. 셀프스터디가 이렇게 진행됩니다.</p></div>
+<section class="w"><div class="fgrid2 sg">{sample_cards(R, samples)}</div>
+<div class="note">모든 샘플은 편입샘이 새로 만든 <b>독창 문항</b>이며, 타 교재·기출문제를 복제하지 않았습니다. 판매 상품이 아니라 구성 방식을 보여 주는 <b>전문가 검수 전 시안</b>입니다.</div></section>''', active="free.html")
+    for key, meta in sc.SAMPLE_SETS.items():
+        prob, sol = sc.sheets_for(key)
+        q, so = samples["free"].get(key + "-q"), samples["free"].get(key + "-s")
+        dl = ""
+        if q and (OUT / q["file"]).exists():
+            dl += f'<a class="btn pri" href="../{q["file"]}" download>문제집 PDF 내려받기</a>'
+        if so and (OUT / so["file"]).exists():
+            dl += f'<a class="btn" href="../{so["file"]}" download>해설집 PDF 내려받기</a>'
+        dl = dl or '<span class="fn">PDF 파일 준비 중</span>'
+        page(f"sample/{key}.html", f"{meta['label']} 샘플 문제집·해설집", f"{meta['label']} 샘플: 문제집과 해설집. 독창 문항, 전문가 검수 전 시안.",
+             crumbs("../", [("무료 샘플", "free.html"), ("샘플 문제집·해설집", "sample.html"), (meta["label"], None)]) +
+             f'''<div class="phead w"><span class="eb">SAMPLE · {meta["label"]}</span><h1>{meta["label"]} 샘플 — 문제집과 해설집</h1>
+<p>{meta["sub"]}. 먼저 문제집을 풀고 해설집을 확인하세요. 아래는 PDF와 동일한 구성입니다.</p><div class="cta sdl">{dl}</div></div>
+<section class="w sheets"><h2 class="sx-t">문제집</h2>{prob}<h2 class="sx-t">해설집</h2>{sol}
+<div class="note">전문가 검수 전 제작 방식 시연용 샘플입니다. 판매 상품의 문항·해설은 검수를 마친 뒤에만 공개합니다. 대학 명칭은 시험 형식 표기를 위한 서술적 사용이며 해당 대학과 무관한 비공식 자료입니다.</div></section>''',
+             active="free.html", robots="noindex" if False else None)
+
+
 def build_data_files():
     pj = []
     for p in PRODUCTS:
@@ -699,8 +773,8 @@ def build_data_files():
     (OUT / "assets").mkdir(exist_ok=True)
     (OUT / "assets" / "products.json").write_text(json.dumps(pj, ensure_ascii=False), encoding="utf-8")
     (OUT / "assets" / "covers.svg").write_text(covers.sprite_file(), encoding="utf-8")
-    (OUT / "assets" / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28"><rect width="28" height="28" rx="3" fill="#16263D"/><path d="M7 8.5h6.2c.5 0 .8.3.8.8V20c-.5-.5-1.2-.8-2-.8H7z M21 8.5h-6.2c-.5 0-.8.3-.8.8V20c.5-.5 1.2-.8 2-.8H21z" fill="none" stroke="#F8F7F3" stroke-width="1.3" stroke-linejoin="round"/><rect x="7" y="22" width="14" height="1.3" fill="#B89B68"/></svg>', encoding="utf-8")
-    urls = ["", "products.html", "english.html", "math.html", "univ.html", "major.html", "interview.html", "complete.html", "free.html", "info.html", "learn.html", "guide.html", "contact.html", "privacy.html"]
+    (OUT / "assets" / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28"><rect width="28" height="28" rx="3" fill="#33312F"/><path d="M7 8.5h6.2c.5 0 .8.3.8.8V20c-.5-.5-1.2-.8-2-.8H7z M21 8.5h-6.2c-.5 0-.8.3-.8.8V20c.5-.5 1.2-.8 2-.8H21z" fill="none" stroke="#BAA58C" stroke-width="1.4" stroke-linejoin="round"/><rect x="7" y="22" width="14" height="1.3" fill="#F4F1EB"/></svg>', encoding="utf-8")
+    urls = ["", "products.html", "english.html", "math.html", "univ.html", "major.html", "interview.html", "complete.html", "free.html", "sample.html", "sample/eng.html", "sample/math.html", "sample/univ.html", "info.html", "learn.html", "guide.html", "contact.html", "privacy.html"]
     urls += [f"p/{p['id']}.html" for p in PRODUCTS] + [f"u/{u['slug']}.html" for u in UNIVS] + [f"learn/{a['slug']}.html" for a in ARTICLES]
     sm = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>{SITE_URL}/{u}</loc></url>" for u in urls) + "</urlset>"
     (OUT / "sitemap.xml").write_text(sm, encoding="utf-8")
@@ -737,7 +811,7 @@ def main():
         old.unlink()
     build_data_files()
     build_home(); build_cat_pages(); build_products_page(); build_product_pages(samples)
-    build_univ_pages(); build_learn(); build_misc(samples); build_plan()
+    build_univ_pages(); build_learn(); build_misc(samples); build_sample_pages(samples); build_plan()
     print(f"products={len(PRODUCTS)} univ={len(UNIVS)} pages={len(list(OUT.rglob('*.html')))}")
 
 

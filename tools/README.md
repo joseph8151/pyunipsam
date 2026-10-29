@@ -54,3 +54,18 @@ npx wrangler dev --local         # 로컬 확인 (http://localhost:8787)
 ## 대학별 정보 갱신
 시험 정보는 매년 바뀝니다. 2027학년도 모집요강이 공개되면 `catalog_univ.py` 의 각 대학 항목(`exam`, `level`, `links`)과 `CHECKED` 날짜를 갱신하세요.
 확인 수준: `official`(공식 문서) / `partial`(공식 공지 일부) / `secondary`(2차 자료) / `none`(미확인).
+
+## 샘플 문제집·해설집
+- 샘플은 편입샘이 새로 쓴 **독창 문항**이며 전문가 검수 전 시안입니다(`tools/sample_content.py`). 수학·대학별 샘플의 정답은 수치 계산으로 검증했습니다.
+- 과목마다 문제집·해설집 PDF가 한 세트입니다: `site/samples/{eng,math,univ}-{problem,solution}.pdf`, 오답노트 `ohdap-note.pdf`.
+- 샘플 내용을 고치면 다음 순서로 다시 만드세요.
+  ```bash
+  python3 tools/build_site.py          # 샘플 화면(site/sample/*.html) 생성
+  node tools/make_sample_pdfs.js       # 화면에서 PDF 생성 (문제집/해설집)
+  node tools/make_note_pdf.js          # 오답노트 양식 PDF
+  python3 tools/build_site.py          # PDF 존재 여부를 반영해 다시 빌드
+  ```
+- `data/samples.json` 의 `products`(상품 상세 연결)와 `free`(무료 샘플 버튼)에 등록된 파일이 실제로 있을 때만 다운로드 버튼이 활성화됩니다.
+
+## 디자인 시스템
+차콜 `#33312F` / 다크 차콜 `#242321` / 웜 아이보리 `#F4F1EB` / 샌드 베이지 `#BAA58C`(강조에만) / 보조 텍스트 `#77726D` / 테두리 `#DED9D0`. 블루 계열은 사용하지 않습니다. 변수는 `tools/assets/style.css` 상단 `:root` 에 있고, 표지 색은 `tools/covers.py` 에 있습니다.

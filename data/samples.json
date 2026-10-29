@@ -1,7 +1,41 @@
 {
-  "_설명": "실제로 존재하는 샘플 파일만 등록하세요. 파일이 site/ 아래에 없으면 다운로드 버튼은 비활성입니다. products: 상품별 PDF 샘플(미리보기 포함), free: 무료 샘플.",
-  "products": {},
+  "_설명": "실제로 존재하는 샘플 파일만 등록하세요. 파일이 site/ 아래에 없으면 다운로드 버튼은 비활성입니다. products: 상품별 샘플(file=문제집 PDF, solution=해설집 PDF, page=화면), free: 무료 샘플.",
+  "products": {
+    "p16": {
+      "file": "samples/eng-problem.pdf",
+      "solution": "samples/eng-solution.pdf",
+      "page": "sample/eng.html"
+    },
+    "p40": {
+      "file": "samples/math-problem.pdf",
+      "solution": "samples/math-solution.pdf",
+      "page": "sample/math.html"
+    },
+    "u01": {
+      "file": "samples/univ-problem.pdf",
+      "solution": "samples/univ-solution.pdf",
+      "page": "sample/univ.html"
+    }
+  },
   "free": {
+    "eng-q": {
+      "file": "samples/eng-problem.pdf"
+    },
+    "eng-s": {
+      "file": "samples/eng-solution.pdf"
+    },
+    "math-q": {
+      "file": "samples/math-problem.pdf"
+    },
+    "math-s": {
+      "file": "samples/math-solution.pdf"
+    },
+    "univ-q": {
+      "file": "samples/univ-problem.pdf"
+    },
+    "univ-s": {
+      "file": "samples/univ-solution.pdf"
+    },
     "free-note": {
       "file": "samples/ohdap-note.pdf",
       "title": "오답노트 양식"

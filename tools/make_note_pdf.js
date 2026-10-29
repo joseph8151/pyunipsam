@@ -4,13 +4,13 @@ const path = require("path");
 const rows = Array.from({ length: 8 }, (_, i) => `<tr><td class="n">${i + 1}</td><td></td><td></td><td></td><td></td><td></td></tr>`).join("");
 const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>
 @page{size:A4;margin:14mm}
-body{font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Noto Sans KR","Noto Sans CJK KR","Malgun Gothic",sans-serif;color:#172338;font-size:10pt}
-h1{font-size:18pt;margin:0 0 4px;color:#0C192B;letter-spacing:-.03em}.sub{color:#667085;font-size:9pt;margin-bottom:14px}
-.meta{display:flex;gap:16px;margin-bottom:12px;font-size:9pt}.meta span{flex:1;border-bottom:1px solid #16263D;padding-bottom:14px}
-table{width:100%;border-collapse:collapse}th{background:#16263D;color:#fff;font-size:8.5pt;padding:6px 4px;font-weight:600}
-td{border:1px solid #C9CED6;height:24mm}td.n{width:7mm;text-align:center;color:#667085;font-size:8.5pt}
+body{font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Noto Sans KR","Noto Sans CJK KR","Malgun Gothic",sans-serif;color:#242321;font-size:10pt}
+h1{font-size:18pt;margin:0 0 4px;color:#242321;letter-spacing:-.03em}.sub{color:#77726D;font-size:9pt;margin-bottom:14px}
+.meta{display:flex;gap:16px;margin-bottom:12px;font-size:9pt}.meta span{flex:1;border-bottom:1px solid #33312F;padding-bottom:14px}
+table{width:100%;border-collapse:collapse}th{background:#33312F;color:#fff;font-size:8.5pt;padding:6px 4px;font-weight:600}
+td{border:1px solid #DED9D0;height:24mm}td.n{width:7mm;text-align:center;color:#77726D;font-size:8.5pt}
 th:nth-child(2){width:30mm}th:nth-child(3){width:26mm}th:nth-child(5){width:44mm}
-.tags{margin-top:12px;font-size:8.5pt;color:#3C4A60;line-height:1.7}.ft{margin-top:10px;font-size:8pt;color:#667085;display:flex;justify-content:space-between}
+.tags{margin-top:12px;font-size:8.5pt;color:#55504B;line-height:1.7}.ft{margin-top:10px;font-size:8pt;color:#77726D;display:flex;justify-content:space-between}
 </style></head><body>
 <h1>편입샘 오답노트</h1><div class="sub">틀린 문제를 '왜 틀렸는지'까지 기록하는 양식 · 인쇄해서 사용하세요</div>
 <div class="meta"><span>교재 / 회차</span><span>날짜</span><span>시간 기록</span></div>
