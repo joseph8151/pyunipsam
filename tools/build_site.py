@@ -163,6 +163,7 @@ def footer(R):
   <div><h4>정보</h4><a href="{R}info.html">대학별 편입정보</a><a href="{R}learn.html">학습 콘텐츠</a><a href="{R}free.html">무료 샘플</a><a href="{R}products.html">전체 문제집</a></div>
   <div><h4>고객 지원</h4><a href="{R}guide.html">이용 안내</a><a href="{R}contact.html">고객 문의</a><a href="{R}privacy.html">개인정보 처리방침</a></div>
  </div>
+ <div class="wm" aria-hidden="true">편입샘</div>
  <p class="legal">편입샘은 학원·과외·컨설팅이 아닌 PDF 문제집 브랜드입니다. 합격을 보장하지 않으며, 대학별 시험 정보는 해당 연도 대학 공식 모집요강이 우선합니다. 표지 이미지는 디자인 시안이며 실제 제작본과 다를 수 있습니다. 대학 명칭은 시험 정보 표기를 위한 서술적 사용이며 해당 대학과 무관한 비공식 자료입니다. 사업자 정보와 결제·환불 규정은 판매 시작 전 공지합니다.</p>
 </div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>"""
@@ -181,6 +182,7 @@ def page(path, title, desc, body, active="", extra_head="", body_class="", jsonl
 <meta property="og:type" content="website"><meta property="og:site_name" content="편입샘"><meta property="og:title" content="{esc(full_title)}"><meta property="og:description" content="{esc(desc)}">
 <meta name="theme-color" content="#33312F">
 <link rel="icon" href="{R}assets/favicon.svg" type="image/svg+xml">
+<script>document.documentElement.className+=" js"</script>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="{R}assets/style.css">{extra_head}{ld}
 </head><body class="{body_class}" data-root="{R}">

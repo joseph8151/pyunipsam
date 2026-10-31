@@ -171,5 +171,20 @@
     });
   }
 
+  /* ── 스크롤 진입 모션 (절제된 페이드업) ── */
+  if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var targets = $$(".sh, .pgrid .pc, .catgrid .cat, .cols .col, .compgrid .cc, .crit li, .loop li, .acgrid .ac, .fgrid2 .fc, .wl, .wr, .ugrid .uc, .story > div, .pdsec > h2, .facts .w > div");
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
+    var vh = window.innerHeight;
+    targets.forEach(function (el, i) {
+      el.classList.add("rv");
+      var sib = el.parentNode ? Array.prototype.indexOf.call(el.parentNode.children, el) : 0;
+      el.style.setProperty("--d", (Math.min(sib, 5) * 0.07) + "s");
+      if (el.getBoundingClientRect().top < vh * 0.9) { requestAnimationFrame(function () { el.classList.add("in"); }); } else { io.observe(el); }
+    });
+  }
+
   refreshCounts();
 })();

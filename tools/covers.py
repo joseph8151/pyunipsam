@@ -179,11 +179,23 @@ MAKERS = {"english": cover_english, "math": cover_math, "univ": cover_univ, "maj
           "interview": cover_interview, "complete": cover_complete}
 
 
+BOOK_FX = ('<rect width="300" height="400" fill="url(#spine)"/><rect width="300" height="400" fill="url(#sheen)"/>'
+           '<rect x=".5" y=".5" width="299" height="399" fill="none" stroke="#000" stroke-opacity=".28"/>')
+
+
 def sprite_file():
     syms = []
     for p in PRODUCTS:
-        body = MAKERS[p["cat"]](p)
+        body = MAKERS[p["cat"]](p) + BOOK_FX
         syms.append(f'<symbol id="c-{p["id"]}" viewBox="0 0 {W} {H}"><g font-family="{FONT}">{body}</g></symbol>')
     defs = ('<defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A2927"/>'
-            '<stop offset="1" stop-color="#3D3A36"/></linearGradient></defs>')
+            '<stop offset="1" stop-color="#3D3A36"/></linearGradient>'
+            # 제본선: 왼쪽 가장자리의 어두운 홈과 바로 옆의 밝은 면
+            '<linearGradient id="spine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".34"/>'
+            '<stop offset=".028" stop-color="#000" stop-opacity=".34"/><stop offset=".034" stop-color="#fff" stop-opacity=".16"/>'
+            '<stop offset=".07" stop-color="#fff" stop-opacity="0"/><stop offset=".94" stop-color="#000" stop-opacity="0"/>'
+            '<stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>'
+            # 위쪽 광택
+            '<linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".10"/>'
+            '<stop offset=".38" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".10"/></linearGradient></defs>')
     return '<svg xmlns="http://www.w3.org/2000/svg">' + defs + "".join(syms) + "</svg>"
