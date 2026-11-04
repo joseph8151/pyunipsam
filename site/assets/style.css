@@ -533,3 +533,4 @@ body{letter-spacing:-.005em;font-weight:400}
 .eb{letter-spacing:.14em;font-size:12px;font-weight:500}
 .sx-s .en,.sx-box,.sx-ch{font-size:15px}
 footer.site .wm{font-weight:800}
+.pdsec>h2:not(:first-child){margin-top:48px}

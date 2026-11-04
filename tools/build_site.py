@@ -81,6 +81,8 @@ def qlabel(p):
         return f"워크북 {q}쪽"
     if u == "어":
         return f"표제어 {q:,}개"
+    if u == "일":
+        return f"{q}일 구성"
     return f"{q:,}{u}"
 
 
@@ -310,8 +312,8 @@ def build_home():
     arts = "".join(f'<a class="ac" href="learn/{a["slug"]}.html"><span class="tag">{esc(a["tag"])}</span><h3>{esc(a["title"])}</h3><p>{esc(a["desc"])}</p><time datetime="{a["date"]}">{a["date"]}</time></a>' for a in sorted(ARTICLES, key=lambda a: a["date"], reverse=True))
     arts += "".join(f'<div class="ac pend"><span class="tag">{esc(a["tag"])}</span><h3>{esc(a["title"])}</h3><p>{esc(a["desc"])}</p><span class="soon">준비 중</span></div>' for a in ARTICLE_PENDING)
 
-    cats = [("편입영어", "english.html", "p13", "어휘·문법·독해·논리, 영역별 24종"),
-            ("편입수학", "math.html", "p27", "미적분·선형대수·공학수학, 19종"),
+    cats = [("편입영어", "english.html", "p13", f"어휘·문법·독해·논리와 학습 도구, {len(by('english'))}종"),
+            ("편입수학", "math.html", "p27", f"미적분·선형대수·공학수학과 학습 도구, {len(by('math'))}종"),
             ("대학별 모의고사", "univ.html", "u01", "실제 시험 형식에 맞춘 모의고사"),
             ("전공 필기", "major.html", "p43", "대학별 시험과 연결될 때만 활성화"),
             ("면접·서류", "interview.html", "p50", "면접 예상질문과 서류 작성 워크북"),
@@ -404,16 +406,18 @@ def build_cat_pages():
     secs = ""
     intro = {"vocab": "문맥 속 의미 구분과 유사 표현 판별 중심.", "grammar": "영역별 개념 요약과 오답 원인 분석.",
              "reading": "지문 구조와 근거 문장을 찾는 독해.", "logic": "연결어와 논리 관계로 정답을 판단하는 훈련.",
-             "eng_all": "종합본과 실전 모의고사, 시험 직전 점검."}
-    for k in ["vocab", "grammar", "reading", "logic", "eng_all"]:
+             "eng_all": "종합본과 실전 모의고사, 시험 직전 점검.",
+             "eng_tool": "요약집·플래너·오답노트 등 문제집을 보조하는 학습 도구."}
+    for k in ["vocab", "grammar", "reading", "logic", "eng_all", "eng_tool"]:
         secs += f'<section class="sec w" id="{k}">{sec_head("ENGLISH · " + SUBS[k], SUBS[k], intro[k])}{grid(by("english", k), "")}</section>'
-    page("english.html", "편입영어 문제집", "편입영어 어휘·문법·독해·논리·종합 문제집 24종. 오답 선지까지 해설하는 PDF 문제집.",
+    page("english.html", "편입영어 문제집", f"편입영어 어휘·문법·독해·논리·종합 문제집과 학습 도구 {len(by('english'))}종. 오답 선지까지 해설하는 PDF 문제집.",
          crumbs("", [("편입영어", None)]) + f'<div class="phead w"><h1>편입영어</h1><p>어휘·문법·독해·논리 네 영역과 종합·실전 문제집. 현재 모든 상품은 제작 준비 중이며 출시 예정으로 표시됩니다.</p></div>' + secs + f'<div class="w">{NOTE_SPEC}</div>', active="english.html")
     # 편입수학
     secs = ""
     intro = {"base": "대학수학 계산에 필요한 선수 개념.", "calc": "극한·미분·적분·급수·다변수미적분.", "linear": "행렬·벡터공간·고유값.",
-             "eng_math": "미분방정식과 공학수학. 출제 범위는 대학마다 다릅니다.", "math_all": "계산 훈련, 시간 단축, 종합 실전과 모의고사."}
-    for k in ["base", "calc", "linear", "eng_math", "math_all"]:
+             "eng_math": "미분방정식과 공학수학. 출제 범위는 대학마다 다릅니다.", "math_all": "계산 훈련, 시간 단축, 종합 실전과 모의고사.",
+             "math_tool": "공식 요약집·플래너·오답노트 등 문제집을 보조하는 학습 도구."}
+    for k in ["base", "calc", "linear", "eng_math", "math_all", "math_tool"]:
         secs += f'<section class="sec w" id="{k}">{sec_head("MATH · " + SUBS[k], SUBS[k], intro[k])}{grid(by("math", k), "")}</section>'
     page("math.html", "편입수학 문제집", "편입수학 기초수학·미적분학·선형대수학·공학수학 문제집. 풀이 분량을 고려한 PDF 문제집.",
          crumbs("", [("편입수학", None)]) + '<div class="phead w"><h1>편입수학</h1><p>수학은 식과 풀이가 길어 문항 수에 비해 쪽수가 많습니다. 문항당 쪽수를 영어보다 넉넉하게 설계했습니다.</p></div>' + secs + f'<div class="w">{NOTE_SPEC}</div>', active="math.html")
@@ -525,7 +529,7 @@ def build_product_pages(samples):
             spec_rows += [("대상 계열", p["track"]), ("시험 형식(기준)", p["spec"]), ("기준 학년도", f"{YEAR} · 마지막 확인 {CHECKED}"),
                           ("확인 수준", LEVEL_LABEL[p["level"]])]
         else:
-            spec_rows.append(("문항 유형", FORMAT.get(p["cat"], "")))
+            spec_rows.append(("문항 유형", "문항 없이 기록·학습 양식 중심의 워크북(설계안)" if p["sub"].endswith("_tool") else FORMAT.get(p["cat"], "")))
         spec_rows += [("파일 형식", "PDF (A4 기준 설계안)"), ("공개 상태", STATUS[p["status"]][0])]
         spec = "".join(f"<tr><th scope='row'>{esc(a)}</th><td>{esc(b)}</td></tr>" for a, b in spec_rows)
         toc = "".join(f"<li>{esc(t)}</li>" for t in toc_for(p))
@@ -630,7 +634,8 @@ def build_univ_pages():
                 extra = f' · <a href="../p/{v}.html">{esc(BY_ID[v]["title"])}</a>'
             elif v:
                 extra = f" · {esc(v)}"
-            rows += f'<tr><th scope="row">{key}. {label}</th><td><span class="st st-{st}">{stlab[st]}</span>{extra}</td></tr>'
+            lab = STATUS[BY_ID[v]["status"]][0] + " 상품 있음" if st == "product" else stlab[st]
+            rows += f'<tr><th scope="row">{key}. {label}</th><td><span class="st st-{st}">{lab}</span>{extra}</td></tr>'
         info = [("기준 학년도", YEAR), ("일반·학사편입", u["types"]), ("모집단위", u["units"]), ("공인영어 반영", u["english"]),
                 ("면접", u["interview"]), ("서류", u["docs"]), ("마지막 확인일", CHECKED), ("확인 수준", LEVEL_LABEL[u["level"]])]
         irows = "".join(f"<tr><th scope='row'>{a}</th><td>{esc(b)}</td></tr>" for a, b in info)

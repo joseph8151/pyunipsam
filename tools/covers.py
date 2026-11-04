@@ -14,7 +14,7 @@ CH, CHD, IV, SAND = "#33312F", "#242321", "#F4F1EB", "#BAA58C"
 # 편입영어 영역별 보조 색상 (채도를 낮춘 웜 톤)
 SUB_COLOR = {"vocab": "#9DAA8F", "grammar": "#C9967A", "reading": "#B59A9A", "logic": "#A8A27A", "eng_all": SAND}
 SUB_EN = {"vocab": "VOCABULARY", "grammar": "GRAMMAR", "reading": "READING", "logic": "LOGIC", "eng_all": "COMPLETE &amp; MOCK",
-          "base": "FOUNDATION", "calc": "CALCULUS", "linear": "LINEAR ALGEBRA", "eng_math": "ENGINEERING MATH", "math_all": "COMPLETE &amp; MOCK"}
+          "eng_tool": "STUDY TOOL", "math_tool": "STUDY TOOL", "base": "FOUNDATION", "calc": "CALCULUS", "linear": "LINEAR ALGEBRA", "eng_math": "ENGINEERING MATH", "math_all": "COMPLETE &amp; MOCK"}
 
 
 def wrap(text, n):
