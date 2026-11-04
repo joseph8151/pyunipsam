@@ -68,4 +68,6 @@ npx wrangler dev --local         # 로컬 확인 (http://localhost:8787)
 - `data/samples.json` 의 `products`(상품 상세 연결)와 `free`(무료 샘플 버튼)에 등록된 파일이 실제로 있을 때만 다운로드 버튼이 활성화됩니다.
 
 ## 디자인 시스템
+폰트: 본문 IBM Plex Sans KR, 제목·표지 나눔명조, 영문 본문 Libre Baskerville (Google Fonts, `style.css` 첫 줄).
+
 차콜 `#33312F` / 다크 차콜 `#242321` / 웜 아이보리 `#F4F1EB` / 샌드 베이지 `#BAA58C`(강조에만) / 보조 텍스트 `#77726D` / 테두리 `#DED9D0`. 블루 계열은 사용하지 않습니다. 변수는 `tools/assets/style.css` 상단 `:root` 에 있고, 표지 색은 `tools/covers.py` 에 있습니다.

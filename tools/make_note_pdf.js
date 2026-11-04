@@ -4,7 +4,7 @@ const path = require("path");
 const rows = Array.from({ length: 8 }, (_, i) => `<tr><td class="n">${i + 1}</td><td></td><td></td><td></td><td></td><td></td></tr>`).join("");
 const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>
 @page{size:A4;margin:14mm}
-body{font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Noto Sans KR","Noto Sans CJK KR","Malgun Gothic",sans-serif;color:#242321;font-size:10pt}
+body{font-family:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR","Noto Sans CJK KR","Malgun Gothic",sans-serif;color:#242321;font-size:10pt}
 h1{font-size:18pt;margin:0 0 4px;color:#242321;letter-spacing:-.03em}.sub{color:#77726D;font-size:9pt;margin-bottom:14px}
 .meta{display:flex;gap:16px;margin-bottom:12px;font-size:9pt}.meta span{flex:1;border-bottom:1px solid #33312F;padding-bottom:14px}
 table{width:100%;border-collapse:collapse}th{background:#33312F;color:#fff;font-size:8.5pt;padding:6px 4px;font-weight:600}

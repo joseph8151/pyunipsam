@@ -183,7 +183,8 @@ def page(path, title, desc, body, active="", extra_head="", body_class="", jsonl
 <meta name="theme-color" content="#33312F">
 <link rel="icon" href="{R}assets/favicon.svg" type="image/svg+xml">
 <script>document.documentElement.className+=" js"</script>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{R}assets/style.css">{extra_head}{ld}
 </head><body class="{body_class}" data-root="{R}">
 {header(R, active)}
@@ -319,7 +320,7 @@ def build_home():
 
     body = f"""
 <section class="hero"><div class="w hg">
- <div class="hl"><span class="eb">TRANSFER EXAM WORKBOOKS</span>
+ <div class="hl"><span class="eb">대학 편입시험 전문 문제집</span>
   <h1>목표 대학을 향한 준비,<br>문제의 수준부터 다르게.</h1>
   <p>편입영어·편입수학부터 대학별 실전 모의고사까지.<br>편입샘은 학습 단계에 맞는 전문 문제집을 제안합니다.</p>
   <div class="cta"><a class="btn pri" href="products.html">전체 문제집 보기</a><a class="btn" href="univ.html">대학별 모의고사 보기</a></div>

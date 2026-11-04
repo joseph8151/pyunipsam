@@ -7,7 +7,8 @@ import html
 from catalog_products import PRODUCTS
 
 W, H = 300, 400
-FONT = "'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif"
+FONT = "'IBM Plex Sans KR','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif"
+SERIF = "'Nanum Myeongjo','Noto Serif KR','AppleMyungjo','Batang',serif"  # 표지 제목은 명조 계열
 
 CH, CHD, IV, SAND = "#33312F", "#242321", "#F4F1EB", "#BAA58C"
 # 편입영어 영역별 보조 색상 (채도를 낮춘 웜 톤)
@@ -33,8 +34,8 @@ def wrap(text, n):
     return lines
 
 
-def text_block(lines, x, y, size, lh, fill, weight=700, ls="-0.04em", anchor="start"):
-    out = [f'<text x="{x}" y="{y}" font-size="{size}" font-weight="{weight}" fill="{fill}" letter-spacing="{ls}" text-anchor="{anchor}">']
+def text_block(lines, x, y, size, lh, fill, weight=700, ls="-0.02em", anchor="start"):
+    out = [f'<text x="{x}" y="{y}" font-family="{SERIF}" font-size="{size}" font-weight="{weight}" fill="{fill}" letter-spacing="{ls}" text-anchor="{anchor}">']
     for i, l in enumerate(lines):
         out.append(f'<tspan x="{x}" dy="{0 if i == 0 else lh}">{html.escape(l)}</tspan>')
     out.append("</text>")
@@ -120,7 +121,7 @@ def cover_univ(p):
     s += f'<text x="40" y="58" font-size="11" font-weight="600" fill="{CH}" letter-spacing=".32em">편입샘</text>'
     s += f'<text x="260" y="58" font-size="10" font-weight="700" fill="{CH}" letter-spacing=".18em" text-anchor="end">{html.escape(p.get("series") or "SERIES")}</text>'
     s += f'<line x1="40" y1="74" x2="260" y2="74" stroke="{CH}" stroke-opacity=".3"/>'
-    s += text_block(wrap(short, 5)[:3], 40, 150, 46, 54, CHD, ls="-0.05em", weight=800)
+    s += text_block(wrap(short, 5)[:3], 40, 150, 46, 54, CHD, ls="-0.03em", weight=800)
     s += f'<rect x="40" y="232" width="28" height="3" fill="{SAND}"/>'
     s += f'<text x="40" y="266" font-size="15" font-weight="600" fill="{CHD}">{html.escape(subj)}</text>'
     s += f'<text x="40" y="286" font-size="10" fill="{CH}" opacity=".6" letter-spacing=".06em">{html.escape(track)} · {html.escape(p.get("spec", ""))[:26]}</text>'
@@ -168,7 +169,7 @@ def cover_complete(p):
     s += f'<line x1="120" y1="102" x2="180" y2="102" stroke="{G}"/>'
     if pre:
         s += f'<text x="150" y="132" font-size="12" fill="{IV}" opacity=".7" text-anchor="middle" letter-spacing=".1em">{pre}</text>'
-    s += text_block(wrap(title, 11)[:4], 150, 178, 26, 36, IV, ls="-0.02em", anchor="middle")
+    s += text_block(wrap(title, 11)[:4], 150, 178, 26, 36, IV, ls="-0.01em", anchor="middle")
     s += f'<text x="150" y="304" font-size="9" fill="{G}" letter-spacing=".3em" text-anchor="middle">{kind}</text>'
     s += f'<line x1="40" y1="340" x2="260" y2="340" stroke="{G}" stroke-opacity=".4"/>'
     s += f'<text x="150" y="364" font-size="11" fill="{IV}" opacity=".85" text-anchor="middle">{html.escape(info_line(p))}</text>'
