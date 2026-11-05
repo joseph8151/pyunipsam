@@ -1,7 +1,14 @@
+User-agent: Yeti
+Allow: /
+Disallow: /plan/
+Disallow: /cart
+Disallow: /compare
+Disallow: /api/
+
 User-agent: *
 Allow: /
 Disallow: /plan/
-Disallow: /cart.html
-Disallow: /compare.html
+Disallow: /cart
+Disallow: /compare
 Disallow: /api/
 Sitemap: https://pyunipsam.yorkboy.workers.dev/sitemap.xml

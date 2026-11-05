@@ -10,11 +10,14 @@ from catalog_products import PRODUCTS, BY_ID, CATS, SUBS, DIFF, LEGACY_MERGE
 from catalog_univ import UNIVS, UNIV_BY_SLUG, ARTICLES, ARTICLE_PENDING, CHECKED, YEAR, LEVEL_LABEL, CAND_TYPES
 import covers
 import sample_content as sc
+import seo
+import datetime
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "site"
 DATA = ROOT / "data"
 SITE_URL = "https://pyunipsam.yorkboy.workers.dev"
+SEO_CFG = {}
 CONTACT_MAIL = "yorkboy@gmail.com"
 
 STATUS = {
@@ -171,18 +174,31 @@ def footer(R):
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>"""
 
 
-def page(path, title, desc, body, active="", extra_head="", body_class="", jsonld=None, robots=None):
+def page(path, title, desc, body, active="", extra_head="", body_class="", jsonld=None, robots=None, keywords=None):
     depth = path.count("/")
     R = "../" * depth
     full_title = title if "편입샘" in title else f"{title} | 편입샘"
-    ld = f'<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
+    lds = jsonld if isinstance(jsonld, list) else ([jsonld] if jsonld else [])
+    ld = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in lds)
     rb = f'<meta name="robots" content="{robots}">' if robots else ""
+    clean = "" if path == "index.html" else path[:-5] if path.endswith(".html") else path
+    url = f"{SITE_URL}/{clean}"
+    kw = ", ".join(keywords if keywords is not None else seo.page_keywords(path))
+    nv = SEO_CFG.get("naverSiteVerification", "")
+    nvm = f'<meta name="naver-site-verification" content="{esc(nv)}">' if nv else ""
+    og = f"{SITE_URL}/assets/og.png"
+    seo_meta = (f'<meta name="keywords" content="{esc(kw)}"><meta name="author" content="편입샘">{nvm}'
+                f'<link rel="canonical" href="{url}">'
+                f'<meta property="og:url" content="{url}"><meta property="og:locale" content="ko_KR"><meta property="og:image" content="{og}">'
+                f'<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'
+                f'<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(full_title)}"><meta name="twitter:description" content="{esc(desc)}"><meta name="twitter:image" content="{og}">')
     doc = f"""<!doctype html>
 <html lang="ko"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(full_title)}</title><meta name="description" content="{esc(desc)}">{rb}
 <meta property="og:type" content="website"><meta property="og:site_name" content="편입샘"><meta property="og:title" content="{esc(full_title)}"><meta property="og:description" content="{esc(desc)}">
 <meta name="theme-color" content="#33312F">
+{seo_meta}
 <link rel="icon" href="{R}assets/favicon.svg" type="image/svg+xml">
 <script>document.documentElement.className+=" js"</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -400,8 +416,8 @@ def build_home():
  <div class="acgrid">{arts}</div></section>
 """
     page("index.html", "편입샘 — 대학 편입시험 전문 문제집", "대학 편입시험 전문 PDF 문제집. 편입영어·편입수학·대학별 모의고사. 필요한 문제만, 정확하게.", body, body_class="home",
-         jsonld={"@context": "https://schema.org", "@type": "WebSite", "name": "편입샘", "url": SITE_URL,
-                 "potentialAction": {"@type": "SearchAction", "target": SITE_URL + "/products.html?q={q}", "query-input": "required name=q"}})
+         jsonld=[{"@context": "https://schema.org", "@type": "WebSite", "name": "편입샘", "url": SITE_URL,
+                  "potentialAction": {"@type": "SearchAction", "target": SITE_URL + "/products.html?q={q}", "query-input": "required name=q"}}, seo.org_ld(SITE_URL)])
 
 
 # ───────────────────────── 카테고리 페이지 ─────────────────────────
@@ -415,7 +431,7 @@ def build_cat_pages():
     for k in ["vocab", "grammar", "reading", "logic", "eng_all", "eng_tool"]:
         secs += f'<section class="sec w" id="{k}">{sec_head("ENGLISH · " + SUBS[k], SUBS[k], intro[k])}{grid(by("english", k), "")}</section>'
     page("english.html", "편입영어 문제집", f"편입영어 어휘·문법·독해·논리·종합 문제집과 학습 도구 {len(by('english'))}종. 오답 선지까지 해설하는 PDF 문제집.",
-         crumbs("", [("편입영어", None)]) + f'<div class="phead w"><h1>편입영어</h1><p>어휘·문법·독해·논리 네 영역과 종합·실전 문제집. 현재 모든 상품은 제작 준비 중이며 출시 예정으로 표시됩니다.</p></div>' + secs + f'<div class="w">{NOTE_SPEC}</div>', active="english.html")
+         crumbs("", [("편입영어", None)]) + f'<div class="phead w"><h1>편입영어</h1><p>어휘·문법·독해·논리 네 영역과 종합·실전 문제집. 현재 모든 상품은 제작 준비 중이며 출시 예정으로 표시됩니다.</p></div>' + secs + f'<div class="w">{NOTE_SPEC}</div>' + seo.faq_section(seo.FAQ_EN), active="english.html", jsonld=seo.faq_ld(seo.FAQ_EN))
     # 편입수학
     secs = ""
     intro = {"base": "대학수학 계산에 필요한 선수 개념.", "calc": "극한·미분·적분·급수·다변수미적분.", "linear": "행렬·벡터공간·고유값.",
@@ -424,7 +440,7 @@ def build_cat_pages():
     for k in ["base", "calc", "linear", "eng_math", "math_all", "math_tool"]:
         secs += f'<section class="sec w" id="{k}">{sec_head("MATH · " + SUBS[k], SUBS[k], intro[k])}{grid(by("math", k), "")}</section>'
     page("math.html", "편입수학 문제집", "편입수학 기초수학·미적분학·선형대수학·공학수학 문제집. 풀이 분량을 고려한 PDF 문제집.",
-         crumbs("", [("편입수학", None)]) + '<div class="phead w"><h1>편입수학</h1><p>수학은 식과 풀이가 길어 문항 수에 비해 쪽수가 많습니다. 문항당 쪽수를 영어보다 넉넉하게 설계했습니다.</p></div>' + secs + f'<div class="w">{NOTE_SPEC}</div>', active="math.html")
+         crumbs("", [("편입수학", None)]) + '<div class="phead w"><h1>편입수학</h1><p>수학은 식과 풀이가 길어 문항 수에 비해 쪽수가 많습니다. 문항당 쪽수를 영어보다 넉넉하게 설계했습니다.</p></div>' + secs + f'<div class="w">{NOTE_SPEC}</div>' + seo.faq_section(seo.FAQ_MATH), active="math.html", jsonld=seo.faq_ld(seo.FAQ_MATH))
     # 전공
     mj = by("major")
     page("major.html", "전공 필기 문제집", "편입 전공 필기 대비 문제집 기획. 실제 전공시험과 연결될 때만 판매 후보로 활성화합니다.",
@@ -586,6 +602,7 @@ def build_product_pages(samples):
   <label class="ck consent"><input type="checkbox" name="consent" required><span>[필수] 개인정보 수집·이용에 동의합니다. (이메일 주소 / 해당 상품 출시 안내 목적 / 신청일로부터 12개월 보관 후 파기, 요청 시 즉시 삭제) <a href="../privacy.html">자세히</a></span></label>
   <button class="btn pri" type="submit" disabled>알림 신청</button><p class="msg" role="status" aria-live="polite"></p>
  </form></section>
+{seo.related_chips(p, R)}
 <section class="w pdsec"><h2>관련 상품</h2>{grid(rel, R)}{NOTE_SPEC}</section>
 <div class="sticky" role="region" aria-label="구매 메뉴"><div class="sp">{price_html(p)}</div>
  <button class="btn cmp" data-compare="{p['id']}" aria-pressed="false">비교</button>
@@ -594,7 +611,8 @@ def build_product_pages(samples):
             {"@type": "ListItem", "position": 1, "name": "홈", "item": SITE_URL + "/"},
             {"@type": "ListItem", "position": 2, "name": cat, "item": f"{SITE_URL}/{catfile}"},
             {"@type": "ListItem", "position": 3, "name": p["title"]}]}
-        page(f"p/{p['id']}.html", p["title"], p["summary"], body, active=catfile, body_class="detail", jsonld=ld)
+        page(f"p/{p['id']}.html", seo.product_title(p), seo.product_desc(p, meta_line(p)), body, active=catfile, body_class="detail", jsonld=ld,
+             keywords=seo.product_keywords(p))
 
 
 # ───────────────────────── 대학 ─────────────────────────
@@ -621,7 +639,7 @@ def build_univ_pages():
  <div class="note">대학별 시험은 해마다 바뀝니다. 이 페이지의 정보는 {YEAR} 기준(마지막 확인 {CHECKED})이며, 공식 모집요강으로 확인된 수준에 따라 상품 기획 여부를 결정합니다. 연세대·고려대처럼 모집단위·캠퍼스별로 시험이 다른 대학은 공식 확인 전까지 정보 페이지로만 제공합니다. <a href="info.html">대학별 편입정보 표 보기</a></div>
 </section>
 <section class="sec w" id="products">{sec_head("MOCK EXAMS", "대학별 모의고사 상품", "공식 자료로 시험 형식이 확인된 대학부터 기획합니다.")}{grid(prods, R)}{NOTE_SPEC}</section>"""
-    page("univ.html", "대학별 모의고사", "건국·한양·중앙·한국외대·동국대 등 대학별 편입 필기시험 형식에 맞춘 모의고사. 기준 학년도와 확인 수준 표시.", body, active="univ.html")
+    page("univ.html", "대학별 모의고사", "건국·한양·중앙·한국외대·동국대 등 대학별 편입 필기시험 형식에 맞춘 모의고사. 기준 학년도와 확인 수준 표시.", body + seo.faq_section(seo.FAQ_UNIV), active="univ.html", jsonld=seo.faq_ld(seo.FAQ_UNIV))
 
     # 개별 대학 페이지
     stlab = {"product": "출시 예정 상품 있음", "candidate": "상품 기획 후보 (공식 확인 후 결정)", "unconfirmed": "시험 정보 미확인", "none": "해당 시험 형식 없음/별도 구성 없음"}
@@ -658,7 +676,8 @@ def build_univ_pages():
 <section class="w pdsec"><h2>상품 유형별 상태</h2><div class="tw"><table class="tb"><tbody>{rows}</tbody></table></div>
  <p class="fn">실제로 존재하는 시험 형식에만 상품을 기획합니다. '후보' 표시는 판매 예정이 아니라 공식 확인 후 결정할 기획 후보입니다.</p></section>
 {f'<section class="w pdsec"><h2>관련 문제집</h2>{grid(prods, R)}{NOTE_SPEC}</section>' if prods else ''}"""
-        page(f"u/{u['slug']}.html", f"{u['name']} 편입 시험 정보", f"{u['name']} {YEAR} 편입 필기시험 정보와 확인 수준, 관련 모의고사.", body, active="info.html")
+        page(f"u/{u['slug']}.html", f"{u['name']} 편입 시험 정보 {YEAR} | {seo.short(u)} 편입 필기시험 · 편입샘",
+             f"{u['name']} {YEAR} 편입 필기시험 과목·시간·문항 수와 공인영어·면접·서류 정보. 확인 수준({LEVEL_LABEL[u['level']]})과 공식 링크, 관련 모의고사를 함께 정리했습니다.", body, active="info.html")
 
     # 정보센터
     rows = ""
@@ -719,7 +738,7 @@ def build_misc(samples):
           ("정오표는 어디서 보나요?", "오류가 확인되면 이곳에 정오표를 공개하고 구매자에게 개정본을 안내합니다."),
           ("재배포가 가능한가요?", "PDF의 복제·재배포·공유는 금지됩니다.")]
     body = "".join(f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>" for q, a in qa)
-    page("guide.html", "이용 안내", "편입샘 이용 안내: 제작·검수 방식, 상품 상태, 구매·환불, 정오표.", crumbs(R, [("이용 안내", None)]) + f'<div class="phead w"><h1>이용 안내</h1></div><section class="w faq">{body}<p>문의: <a href="contact.html">고객 문의</a></p></section>', active="guide.html")
+    page("guide.html", "이용 안내", "편입샘 이용 안내: 제작·검수 방식, 상품 상태, 구매·환불, 정오표.", crumbs(R, [("이용 안내", None)]) + f'<div class="phead w"><h1>이용 안내</h1></div><section class="w faq">{body}<p>문의: <a href="contact.html">고객 문의</a></p></section>', active="guide.html", jsonld=seo.faq_ld(qa))
     # 문의
     page("contact.html", "고객 문의", "편입샘 고객 문의와 출시 알림 요청.",
          crumbs(R, [("고객 문의", None)]) + f"""<div class="phead w"><h1>고객 문의</h1><p>제작 중인 문제집, 대학별 시험 정보, 오류 신고 등을 남겨 주세요.</p></div>
@@ -788,9 +807,12 @@ def build_data_files():
     (OUT / "assets" / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28"><rect width="28" height="28" rx="3" fill="#33312F"/><path d="M7 8.5h6.2c.5 0 .8.3.8.8V20c-.5-.5-1.2-.8-2-.8H7z M21 8.5h-6.2c-.5 0-.8.3-.8.8V20c.5-.5 1.2-.8 2-.8H21z" fill="none" stroke="#BAA58C" stroke-width="1.4" stroke-linejoin="round"/><rect x="7" y="22" width="14" height="1.3" fill="#F4F1EB"/></svg>', encoding="utf-8")
     urls = ["", "products.html", "english.html", "math.html", "univ.html", "major.html", "interview.html", "complete.html", "free.html", "sample.html", "sample/eng.html", "sample/math.html", "sample/univ.html", "info.html", "learn.html", "guide.html", "contact.html", "privacy.html"]
     urls += [f"p/{p['id']}.html" for p in PRODUCTS] + [f"u/{u['slug']}.html" for u in UNIVS] + [f"learn/{a['slug']}.html" for a in ARTICLES]
-    sm = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>{SITE_URL}/{u}</loc></url>" for u in urls) + "</urlset>"
+    today = datetime.date.today().isoformat()
+    def clean_url(u):
+        return u[:-5] if u.endswith(".html") else u
+    sm = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "".join(f"<url><loc>{SITE_URL}/{clean_url(u)}</loc><lastmod>{today}</lastmod></url>" for u in urls) + "</urlset>"
     (OUT / "sitemap.xml").write_text(sm, encoding="utf-8")
-    (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /plan/\nDisallow: /cart.html\nDisallow: /compare.html\nDisallow: /api/\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8")
+    (OUT / "robots.txt").write_text(f"User-agent: Yeti\nAllow: /\nDisallow: /plan/\nDisallow: /cart\nDisallow: /compare\nDisallow: /api/\n\nUser-agent: *\nAllow: /\nDisallow: /plan/\nDisallow: /cart\nDisallow: /compare\nDisallow: /api/\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8")
 
 
 def build_plan():
@@ -813,6 +835,7 @@ def build_plan():
 
 def main():
     OUT.mkdir(exist_ok=True)
+    SEO_CFG.update(load_json("seo.json", {}))
     samples = merge_sales()
     assets = ROOT / "tools" / "assets"
     (OUT / "assets").mkdir(exist_ok=True)

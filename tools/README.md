@@ -71,3 +71,13 @@ npx wrangler dev --local         # 로컬 확인 (http://localhost:8787)
 폰트: 본문 IBM Plex Sans KR, 제목·표지 나눔명조, 영문 본문 Libre Baskerville (Google Fonts, `style.css` 첫 줄).
 
 차콜 `#33312F` / 다크 차콜 `#242321` / 웜 아이보리 `#F4F1EB` / 샌드 베이지 `#BAA58C`(강조에만) / 보조 텍스트 `#77726D` / 테두리 `#DED9D0`. 블루 계열은 사용하지 않습니다. 변수는 `tools/assets/style.css` 상단 `:root` 에 있고, 표지 색은 `tools/covers.py` 에 있습니다.
+
+## 네이버 검색 최적화(SEO)
+- 페이지마다 제목·설명·`keywords`·canonical·공유 이미지(og)·구조화 데이터(JSON-LD)가 자동으로 들어갑니다. 키워드 사전은 `tools/seo.py` 에 있습니다.
+- 원칙: 키워드를 본문에 억지로 반복하지 않습니다. 제공하지 않는 것(예: '기출문제집')은 키워드로 쓰지 않습니다.
+- 공유 이미지 재생성: `node tools/make_og.js` (→ `site/assets/og.png`)
+- **네이버 서치어드바이저 등록(직접 해야 하는 일)**
+  1. https://searchadvisor.naver.com 에서 사이트를 등록하고 '소유확인 → HTML 태그'의 `content` 값을 복사합니다.
+  2. `data/seo.json` 의 `naverSiteVerification` 에 붙여 넣고 `python3 tools/build_site.py` 후 푸시합니다.
+  3. 소유확인이 끝나면 '요청 → 사이트맵 제출'에 `https://pyunipsam.yorkboy.workers.dev/sitemap.xml` 을 제출하고, 주요 페이지는 '웹 페이지 수집'으로 요청합니다.
+- 도메인을 바꾸면 `tools/build_site.py` 의 `SITE_URL` 을 함께 바꾸세요(canonical·사이트맵에 쓰입니다).
