@@ -189,6 +189,7 @@ def page(path, title, desc, body, active="", extra_head="", body_class="", jsonl
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{R}assets/style.css">{extra_head}{ld}
 </head><body class="{body_class}" data-root="{R}">
+<div class="prog" aria-hidden="true"></div>
 {header(R, active)}
 <main id="main">{body}</main>
 {footer(R)}
@@ -320,6 +321,7 @@ def build_home():
             ("COMPLETE 패키지", "complete.html", "p58", "영역을 묶은 프리미엄 컬렉션")]
     cat_h = "".join(f'<a class="cat" href="{h}"><div class="cvw">{cover(BY_ID[pid], R)}</div><div><h3>{t}</h3><p>{d}</p></div></a>' for t, h, pid, d in cats)
 
+    TICK = "".join(f"<span>{w}</span>" for w in ["편입영어", "편입수학", "대학별 모의고사", "해설집이 무기", "셀프스터디", "필요한 문제만, 정확하게"])
     body = f"""
 <section class="hero"><div class="w hg">
  <div class="hl"><span class="eb">대학 편입시험 전문 문제집</span>
@@ -334,6 +336,8 @@ def build_home():
   <div><b>{len(UNIVS)}개 대학<i>편입정보</i></b>확인 수준과 출처를 함께 표시</div>
   <div><b>{reviewed}종<i>검수 완료</i></b>검수를 마친 상품에만 표시합니다</div></div></div>
 </section>
+
+<div class="ticker" aria-hidden="true"><div class="tk">{TICK}{TICK}</div></div>
 
 <section class="sec weapon"><div class="w wg">
  <div class="wl"><span class="eb">OUR WEAPON</span>
@@ -395,7 +399,7 @@ def build_home():
 <section class="sec w">{sec_head("LEARN", "학습 콘텐츠", "대학별 시험 정보와 학습 자료를 정리합니다.")}
  <div class="acgrid">{arts}</div></section>
 """
-    page("index.html", "편입샘 — 대학 편입시험 전문 문제집", "대학 편입시험 전문 PDF 문제집. 편입영어·편입수학·대학별 모의고사. 필요한 문제만, 정확하게.", body,
+    page("index.html", "편입샘 — 대학 편입시험 전문 문제집", "대학 편입시험 전문 PDF 문제집. 편입영어·편입수학·대학별 모의고사. 필요한 문제만, 정확하게.", body, body_class="home",
          jsonld={"@context": "https://schema.org", "@type": "WebSite", "name": "편입샘", "url": SITE_URL,
                  "potentialAction": {"@type": "SearchAction", "target": SITE_URL + "/products.html?q={q}", "query-input": "required name=q"}})
 

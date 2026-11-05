@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Nanum+Myeongjo:wght@400;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Nanum+Myeongjo:wght@400;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 /* 편입샘 디자인 시스템 — 차콜 그레이 × 웜 아이보리 × 샌드 베이지. 간격은 8px 단위, 블루 계열 미사용. */
 :root{
   --ch:#33312F;        /* Primary Charcoal */
@@ -534,3 +534,122 @@ body{letter-spacing:-.005em;font-weight:400}
 .sx-s .en,.sx-box,.sx-ch{font-size:15px}
 footer.site .wm{font-weight:800}
 .pdsec>h2:not(:first-child){margin-top:48px}
+
+
+/* ═════════ EDGE LAYER — 직각 · 굵은 윤곽 · 어긋난 그림자 · 인쇄 트림마크 · 모노 라벨 ═════════ */
+:root{--mono:"IBM Plex Mono","IBM Plex Sans KR",ui-monospace,monospace}
+*,*::before,*::after{border-radius:0!important}
+.cnt{border-radius:9px!important}
+::selection{background:var(--sand);color:var(--chd)}
+.prog{position:fixed;left:0;top:0;height:3px;width:0;background:var(--sand);z-index:200;pointer-events:none}
+
+/* 모노 라벨 */
+.eb,.badge,.tag,.pc-m,.mm,.sx-m,.facts b i,.cap,.lv,.st,.sn,.kv dt,.fl{font-family:var(--mono)}
+.eb{letter-spacing:.16em;text-transform:uppercase;font-weight:500}
+.badge,.tag{letter-spacing:.02em}
+
+/* 헤더·내비: 블록형 선택 상태 */
+nav.gnb{border-bottom:3px solid var(--sand)}
+nav.gnb a{transition:background .2s,color .2s}
+nav.gnb a::after{display:none}
+nav.gnb a:hover{background:rgba(186,165,140,.16);color:#fff}
+nav.gnb a.on{background:var(--sand);color:var(--chd);font-weight:700}
+.util{border-bottom:1px solid rgba(244,241,235,.08)}
+.logo .mark{outline:1px solid rgba(244,241,235,.35);outline-offset:3px}
+
+/* 버튼: 어긋난 그림자 */
+.btn{border-width:1.5px;box-shadow:4px 4px 0 var(--chd);transition:transform .18s,box-shadow .18s,background .2s,color .2s}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--chd)}
+.btn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--chd)}
+.btn.pri{box-shadow:4px 4px 0 var(--sand-d);border-color:var(--chd)}
+.btn.pri:hover{box-shadow:2px 2px 0 var(--sand-d)}
+.hero .btn,.sec.selfstudy .btn,.sec.dark .btn{box-shadow:4px 4px 0 rgba(244,241,235,.28)}
+.hero .btn.pri,.sec.selfstudy .btn.pri{box-shadow:5px 5px 0 var(--iv);border-color:var(--sand)}
+.hero .btn:hover,.sec.selfstudy .btn:hover{box-shadow:2px 2px 0 rgba(244,241,235,.4)}
+.btn.dis,.btn:disabled,.btn.dis:hover{box-shadow:none;transform:none}
+.sticky .btn{box-shadow:none}
+
+/* 히어로: 거대한 타이포, 겹치는 책, 세로 라벨 */
+.hl h1{font-size:clamp(42px,6.6vw,96px);line-height:1.06;letter-spacing:-.045em;font-weight:800}
+.hl p{margin:32px 0 44px}
+.hg{grid-template-columns:1.25fr 1fr;min-height:620px}
+.hr{margin-left:-96px;z-index:2}
+.hl{position:relative;z-index:3}
+.vlabel{position:absolute;right:20px;top:50%;writing-mode:vertical-rl;font-family:var(--mono);font-size:11px;letter-spacing:.34em;color:rgba(244,241,235,.45);text-transform:uppercase;translate:0 -50%;z-index:1}
+.hero{border-bottom:3px solid var(--sand)}
+.facts b{font-size:44px;letter-spacing:-.04em}
+.facts .w>div+div{border-left:1px solid rgba(244,241,235,.12);padding-left:32px}
+
+/* 띠(ticker) */
+.ticker{overflow:hidden;background:var(--sand);color:var(--chd);border-bottom:1px solid var(--chd);white-space:nowrap}
+.tk{display:inline-flex;animation:tk 48s linear infinite;will-change:transform}
+.tk span{font-family:var(--serif);font-weight:800;font-size:20px;padding:14px 28px;letter-spacing:-.01em}
+.tk span::after{content:"✦";margin-left:56px;font-size:12px;vertical-align:2px;color:var(--chd)}
+@keyframes tk{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.tk{animation:none}}
+
+/* 섹션 헤더: 굵은 룰 + 거대한 섹션 번호 */
+.sh::before{height:2px;background:linear-gradient(90deg,var(--sand) 0 96px,var(--chd) 96px);margin-bottom:32px}
+.sh.dk::before{background:linear-gradient(90deg,var(--sand) 0 96px,rgba(244,241,235,.5) 96px)}
+.sh h2{font-size:clamp(32px,4.6vw,60px);letter-spacing:-.035em;line-height:1.14}
+body.home main{counter-reset:sec}
+body.home .sec{counter-increment:sec;position:relative;overflow:hidden}
+body.home .sec .sh{position:relative}
+body.home .sec .sh::after{content:counter(sec,decimal-leading-zero);position:absolute;right:0;top:-24px;font-family:var(--serif);font-weight:800;font-size:clamp(90px,14vw,200px);line-height:1;color:rgba(36,35,33,.055);pointer-events:none}
+body.home .sec.dark .sh::after,body.home .sec.math .sh::after,body.home .sec.selfstudy .sh::after{color:rgba(244,241,235,.06)}
+
+/* 카드: 굵은 윤곽 + 트림마크 + 어긋난 호버 그림자 */
+.pc{border:1px solid var(--chd);background:var(--wh)}
+.pc:hover{transform:translate(-4px,-4px);box-shadow:8px 8px 0 var(--sand);border-color:var(--chd)}
+.pc-cv{border-bottom:1px solid var(--chd);position:relative}
+.pc-cv::before,.col .cvw::before,.cvbig::before{content:"";position:absolute;inset:10px;pointer-events:none;
+ background:
+  linear-gradient(var(--sand-d),var(--sand-d)) top left/14px 1px no-repeat,linear-gradient(var(--sand-d),var(--sand-d)) top left/1px 14px no-repeat,
+  linear-gradient(var(--sand-d),var(--sand-d)) top right/14px 1px no-repeat,linear-gradient(var(--sand-d),var(--sand-d)) top right/1px 14px no-repeat,
+  linear-gradient(var(--sand-d),var(--sand-d)) bottom left/14px 1px no-repeat,linear-gradient(var(--sand-d),var(--sand-d)) bottom left/1px 14px no-repeat,
+  linear-gradient(var(--sand-d),var(--sand-d)) bottom right/14px 1px no-repeat,linear-gradient(var(--sand-d),var(--sand-d)) bottom right/1px 14px no-repeat}
+.col .cvw,.cvbig{position:relative}
+.col .cvw{border:1px solid var(--chd)}.cvbig{border:1px solid var(--chd)}
+.cat{border:1px solid var(--chd);transition:transform .2s,box-shadow .2s}
+.cat:hover{transform:translate(-4px,-4px);box-shadow:8px 8px 0 var(--sand);border-color:var(--chd)}
+.ac,.fc,.uc{border:1px solid var(--chd)}
+.ac:hover,.uc:hover,.fc:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--sand);border-color:var(--chd)}
+.pc-a{border-top:1px solid var(--chd)}
+.note{border:1px solid var(--chd);border-left:6px solid var(--sand)}
+.chip{border:1px solid var(--chd)}.chip:hover{background:var(--sand);color:var(--chd);border-color:var(--chd)}
+.sec.math .col .cvw{border-color:rgba(186,165,140,.5)}
+.darkpage .pc{border-color:rgba(186,165,140,.6)}.darkpage .pc:hover{box-shadow:8px 8px 0 var(--sand)}
+.sec.math .col .cvw::before{opacity:.8}
+
+/* 해설집 섹션: 더 크고 더 거칠게 */
+.wl h2{font-size:clamp(40px,5.8vw,84px);line-height:1.08;letter-spacing:-.045em}
+.wlead{font-size:19px}
+.paper{border:2px solid var(--chd);border-top:2px solid var(--chd);box-shadow:16px 16px 0 var(--sand);transform:rotate(-1.4deg)}
+.paper::before{display:none}
+.wr:hover .paper{transform:rotate(0)}
+.layers li{border-top:1px solid var(--chd)}
+.loop li{border-top:2px solid rgba(186,165,140,.7)}
+.loop span{font-size:44px;letter-spacing:-.04em}
+
+/* 상세 */
+.pbox{border:2px solid var(--chd);border-top:2px solid var(--chd);box-shadow:8px 8px 0 var(--sand)}
+.pd-info h1{font-size:clamp(30px,3.8vw,52px);line-height:1.15;letter-spacing:-.035em}
+.sheet{border:2px solid var(--chd);box-shadow:8px 8px 0 var(--sand)}
+.tabs{border-bottom:2px solid var(--chd)}.tabs a:hover{border-color:var(--chd)}
+.filters{border:1px solid var(--chd)}
+.tb,.tb th,.tb td{border-color:var(--chd)}
+.tb tbody th{background:var(--sand-t)}
+.phead h1{font-size:clamp(34px,5vw,64px);line-height:1.1;letter-spacing:-.04em}
+
+/* 푸터 */
+footer.site{border-top:6px solid var(--sand)}
+footer.site .wm{font-size:clamp(120px,25vw,360px);color:rgba(186,165,140,.12);margin-top:56px}
+
+@media (max-width:1100px){.hr{margin-left:0}.vlabel{display:none}.hg{grid-template-columns:1fr}.facts .w>div+div{border-left:0;padding-left:0}}
+@media (max-width:900px){.pc:hover,.cat:hover,.ac:hover,.uc:hover,.fc:hover{transform:none;box-shadow:none}.paper{box-shadow:8px 8px 0 var(--sand)}body.home .sec .sh::after{font-size:96px;top:-8px}}
+@media (max-width:600px){.hl h1{font-size:40px}.btn{box-shadow:3px 3px 0 var(--chd)}.tk span{font-size:17px;padding:12px 20px}.facts b{font-size:30px}.pbox{box-shadow:5px 5px 0 var(--sand)}.sheet{box-shadow:4px 4px 0 var(--sand)}}
+/* 히어로 헤드라인 조정: 3줄, 책과의 겹침 완화 */
+.hl h1{font-size:clamp(40px,5.5vw,78px);line-height:1.1}
+.hr{margin-left:-24px}
+.vlabel{writing-mode:vertical-rl;text-orientation:sideways;font-size:10.5px;letter-spacing:.3em}
+.btn.cmp{border:1.5px solid var(--ch);margin-left:0}

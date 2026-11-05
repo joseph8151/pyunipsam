@@ -186,5 +186,17 @@
     });
   }
 
+  /* ── 스크롤 진행 바 ── */
+  var prog = $(".prog");
+  if (prog) {
+    var tick = false;
+    var upd = function () {
+      var h = document.documentElement, max = h.scrollHeight - h.clientHeight;
+      prog.style.width = (max > 0 ? Math.min(100, (h.scrollTop / max) * 100) : 0) + "%"; tick = false;
+    };
+    window.addEventListener("scroll", function () { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
+    upd();
+  }
+
   refreshCounts();
 })();
