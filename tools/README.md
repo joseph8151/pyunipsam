@@ -58,6 +58,7 @@ npx wrangler dev --local         # 로컬 확인 (http://localhost:8787)
 ## 샘플 문제집·해설집
 - 샘플은 편입샘이 새로 쓴 **독창 문항**이며 전문가 검수 전 시안입니다(`tools/sample_content.py`). 수학·대학별 샘플의 정답은 수치 계산으로 검증했습니다.
 - 과목마다 문제집·해설집 PDF가 한 세트입니다: `site/samples/{eng,math,univ}-{problem,solution}.pdf`, 오답노트 `ohdap-note.pdf`.
+- 샘플은 과목별 10문항(영어·수학·대학별)이며 내용은 `tools/sample_v2.py` 에 있습니다. 해설은 2단으로 빽빽하게 흘러가도록 인쇄용 CSS(`@media print`)로 만듭니다. PDF 생성 후 맨 끝의 글자 없는 쪽을 자동 제거하므로 poppler(`pdfinfo`, `pdftotext`, `pdfseparate`, `pdfunite`)가 필요합니다.
 - 샘플 내용을 고치면 다음 순서로 다시 만드세요.
   ```bash
   python3 tools/build_site.py          # 샘플 화면(site/sample/*.html) 생성

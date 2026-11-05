@@ -9,7 +9,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from catalog_products import PRODUCTS, BY_ID, CATS, SUBS, DIFF, LEGACY_MERGE
 from catalog_univ import UNIVS, UNIV_BY_SLUG, ARTICLES, ARTICLE_PENDING, CHECKED, YEAR, LEVEL_LABEL, CAND_TYPES
 import covers
-import sample_content as sc
+import sample_v2 as sc
 import seo
 import datetime
 
@@ -275,9 +275,9 @@ def sample_cards(R, samples, free_page=False):
         s_ = fr.get(k)
         return s_ if (s_ and (OUT / s_["file"]).exists()) else None
     out = ""
-    desc = {"eng": "빈칸 추론 1문항 — 문제집 1쪽과 해설집 2쪽(본문 번역·구성·제목·주제·요지·요약·문장별 분석·선택지 해부)",
-            "math": "미분·적분·선형대수 3문항 — 문제집과 해설집(정석 풀이·단축 풀이·계산 검증·오답 선지 분석)",
-            "univ": "한양대 자연계 수학 형식(25문항·70분 기준)의 3문항 — 객관식 2 + 단답형 1"}
+    desc = {"eng": "어휘·문법·논리·독해 10문항 — 문제집과 해설집(본문 번역·문장별 분석·어휘 정리·핵심 개념·선택지 해부·함정·변형 출제)",
+            "math": "미적분·선형대수·미분방정식 10문항 — 문제집과 해설집(핵심 개념·정석/단축 풀이·계산 검증·오답 분석·변형 출제)",
+            "univ": "한양대 자연계 수학 형식(25문항·70분 기준)의 10문항 — 객관식 7 + 단답형 3"}
     for key, meta in sc.SAMPLE_SETS.items():
         q, so = ok(key + "-q"), ok(key + "-s")
         bq = f'<a class="btn pri" href="{R}{q["file"]}" download>문제집 PDF</a>' if q else '<button class="btn dis" disabled>문제집 준비 중</button>'
